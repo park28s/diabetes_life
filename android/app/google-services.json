@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "519197150132",
+    "project_id": "diabeteslife",
+    "storage_bucket": "diabeteslife.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519197150132:android:a9e7a6da909dad89e040e1",
+        "android_client_info": {
+          "package_name": "com.iglab.diabeteslife.diabetes_life"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "519197150132-t6ihp36fom8a6ho0jh2bv2soquunp6v4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoBoYFp6S14RwV6jWaMuaY_pCkVOkra4A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "519197150132-t6ihp36fom8a6ho0jh2bv2soquunp6v4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "519197150132-9735db284lr0nn7s53q2j9fl8g21ihl2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.iglab.diabeteslife"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
