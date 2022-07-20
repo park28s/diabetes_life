@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 
 // main navigationBar controller
 class CustomNaviBarController extends GetxController with GetTickerProviderStateMixin {
+  static CustomNaviBarController get to => Get.find(); // find 명령을 안쓰고 .to로 사용이 가능
+
   final autoSizeGroup = AutoSizeGroup();
   RxInt bottomNavIndex = 0.obs;
 

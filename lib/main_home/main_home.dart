@@ -15,7 +15,7 @@ class MainHome extends StatelessWidget {
           alignment: Alignment.center,
           width: mainWidthSize,
           height: mainHeightSize,
-          color: Colors.deepPurple,
+          color: Colors.grey.shade200,
           child: LayoutBuilder(
             builder: (context, size) => SingleChildScrollView(
               child: Column(

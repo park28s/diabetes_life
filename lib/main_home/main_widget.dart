@@ -11,7 +11,7 @@ Widget mainContainer(double width, double height, String text) {
     height: height,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(10),
-      color: Colors.yellow
+      color: Colors.white
     ),
     child: Text(text),
   );
@@ -20,7 +20,7 @@ Widget mainContainer(double width, double height, String text) {
 // main navigationBar
 Widget customAnimatedBar() {
   Get.put(CustomNaviBarController());
-  final customNaviBarController = Get.find<CustomNaviBarController>();
+  //final customNaviBarController = Get.find<CustomNaviBarController>();
   return AnimatedBottomNavigationBar.builder(
     itemCount: iconList.length,
     tabBuilder: (int index, bool isAction) {
@@ -37,23 +37,23 @@ Widget customAnimatedBar() {
               '$index',
               maxLines: 1,
               style: TextStyle(color: color),
-              group: customNaviBarController.autoSizeGroup,
+              group: CustomNaviBarController.to.autoSizeGroup,
             ),
           )
         ],
       );
     },
     backgroundColor: Colors.white,
-    activeIndex: customNaviBarController.bottomNavIndex.value,
+    activeIndex: CustomNaviBarController.to.bottomNavIndex.value,
     splashColor: Colors.grey,
-    notchAndCornersAnimation: customNaviBarController.borderRadiusAnimation,
+    notchAndCornersAnimation: CustomNaviBarController.to.borderRadiusAnimation,
     notchSmoothness: NotchSmoothness.defaultEdge,
     gapLocation: GapLocation.center,
     leftCornerRadius: 32,
     rightCornerRadius: 32,
-    onTap: (index) => customNaviBarController.bottomNavIndex.value = index,
+    onTap: (index) => CustomNaviBarController.to.bottomNavIndex.value = index,
     hideAnimationController:
-        customNaviBarController.hideBottomBarAnimationController,
+    CustomNaviBarController.to.hideBottomBarAnimationController,
     shadow: BoxShadow(
       offset: Offset(0, 1),
       blurRadius: 12,
