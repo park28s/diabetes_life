@@ -11,7 +11,6 @@ class AppBarDefault extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
-      iconTheme: IconThemeData(color: Colors.blue, size: 30),
       elevation: 0,
       title: TextConfig().TextConfig1('슬기로운 당뇨생활', 25, FontWeight.bold, Colors.black),
       actions: [

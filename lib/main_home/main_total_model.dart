@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 final iconList = [
-  Icons.brightness_5,
-  Icons.brightness_4,
+  Icons.edit_note,
+  Icons.sentiment_satisfied_outlined,
   Icons.brightness_6,
-  Icons.brightness_7,
+  Icons.settings,
 ];
