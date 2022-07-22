@@ -6,3 +6,5 @@ final iconList = [
   Icons.brightness_6,
   Icons.settings,
 ];
+
+List foodList = [];

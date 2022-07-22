@@ -18,7 +18,16 @@ class AutoSizeTextConfig {
     return AutoSizeText(text,
         maxLines: maxLines,
         group: CustomNaviBarController.to.autoSizeGroup,
+        style: TextStyle(color: color, fontWeight: weight, fontFamily: ''));
+  }
+
+  TextConfig2(String text, int maxLines, double maxFont, double minFont,
+      dynamic color, double size, dynamic weight) {
+    return AutoSizeText(text,
+        maxLines: maxLines,
+        maxFontSize: maxFont,
+        minFontSize: minFont,
         style: TextStyle(
-            color: color, fontWeight: weight, fontFamily: ''));
+            color: color, fontSize: size, fontWeight: weight, fontFamily: 'MaruBuri'));
   }
 }
