@@ -15,7 +15,7 @@ class HexColor extends Color {
 
 // 음식 종류별 색상
 class FoodListColors {
-  Color good = Colors.greenAccent;
+  Color good = Colors.green;
   Color bad = Colors.redAccent;
   Color soso = Colors.purpleAccent;
 }

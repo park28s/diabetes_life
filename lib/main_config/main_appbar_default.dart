@@ -12,9 +12,10 @@ class AppBarDefault extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       centerTitle: true,
       elevation: 0,
-      title: TextConfig().TextConfig1('슬기로운 당뇨생활', 25, FontWeight.bold, Colors.black),
+      title: TextConfig()
+          .TextConfig1('슬기로운 당뇨생활', 25, FontWeight.bold, Colors.black),
       actions: [
-       /* userUid == null
+        /* userUid == null
             ? loginIconButton(Colors.blue, '  로그인', 11, Colors.lightBlue)
             : Text('')*/
       ],
@@ -24,11 +25,30 @@ class AppBarDefault extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(mainHeightSize * 0.08);
 }
-
 //////////////////////////////////////////////////////////////////////////////
 
-// 디폴트2 앱바 ( 로고, 스캔 용도 버튼)
+// 디폴트 앱바2 ( 로고, 로그인 버튼)
 class AppBarDefault2 extends StatelessWidget implements PreferredSizeWidget {
+  const AppBarDefault2();
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      centerTitle: true,
+      elevation: 0,
+      title: TextConfig()
+          .TextConfig1('슬기로운 당뇨생활', 25, FontWeight.bold, Colors.black),
+      leading: IconButton(
+          onPressed: () => Get.back(), icon: Icon(Icons.backspace_outlined, color: Colors.black,)),
+    );
+  }
+
+  @override
+  Size get preferredSize => Size.fromHeight(mainHeightSize * 0.08);
+}
+
+// 디폴트2 앱바 ( 로고, 스캔 용도 버튼)
+/*class AppBarDefault2 extends StatelessWidget implements PreferredSizeWidget {
   const AppBarDefault2();
 
   @override
@@ -82,4 +102,4 @@ class AppBarDefault4 extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => Size(0.0, 0.0);
-}
+}*/
