@@ -1,10 +1,22 @@
+import 'package:diabetes_life/firebase_options.dart';
 import 'package:diabetes_life/main_config/main_size.dart';
 import 'package:diabetes_life/main_home/main_home.dart';
+import 'package:diabetes_life/pages/model/check_model.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'dart:ui';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+DateTime timeNow = DateTime.now();
+
+void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(CheckModelAdapter());
+  await Hive.openBox<CheckModel>('check');
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform
+  );
   runApp(const DiabetesLife());
 }
 

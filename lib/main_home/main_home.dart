@@ -32,7 +32,7 @@ class MainHome extends StatelessWidget {
                   SizedBox(height: size.maxHeight * 0.02),
                   InkWell(
                     onTap: () => Get.to(() => GoalPage()),
-                    child: mainContainer(size.maxWidth * 0.9, size.maxHeight * 0.3,
+                    child: mainContainer(size.maxWidth * 0.9, size.maxHeight * 0.4,
                         Colors.white, goalMain()),
                   ),
                   SizedBox(height: size.maxHeight * 0.02),

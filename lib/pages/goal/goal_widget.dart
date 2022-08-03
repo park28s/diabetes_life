@@ -1,3 +1,4 @@
+import 'package:diabetes_life/main.dart';
 import 'package:diabetes_life/main_config/main_widget.dart';
 import 'package:diabetes_life/main_config/text_config.dart';
 import 'package:diabetes_life/pages/goal/goal_page.dart';
@@ -11,7 +12,7 @@ Widget diabetesGoal() {
         children: [
           SizedBox(height: size.maxHeight * 0.02),
           AutoSizeTextConfig().TextConfig2(
-              '${DateTime.now().month.toString()}월달 목표 혈당을 적어 주세요',
+              '${timeNow.month.toString()}월달 목표 혈당을 적어 주세요',
               1,
               30,
               15,
@@ -26,21 +27,21 @@ Widget diabetesGoal() {
                 children: [
                   AutoSizeTextConfig().TextConfig2(
                       '공복', 1, 30, 15, Colors.deepPurple, 20, FontWeight.w700),
-                  textEditForm(diabetesEmptyStomach, TextInputType.number)
+                  textEditForm(diabetesEmptyStomachController, TextInputType.number)
                 ],
               ),
               Column(
                 children: [
                   AutoSizeTextConfig().TextConfig2(
                       '식전', 1, 30, 15, Colors.deepPurple, 20, FontWeight.w700),
-                  textEditForm(diabetesBeforeMeal, TextInputType.number)
+                  textEditForm(diabetesBeforeMealController, TextInputType.number)
                 ],
               ),
               Column(
                 children: [
                   AutoSizeTextConfig().TextConfig2(
                       '식후', 1, 30, 15, Colors.deepPurple, 20, FontWeight.w700),
-                  textEditForm(diabetesAfterMeal, TextInputType.number)
+                  textEditForm(diabetesAfterMealController, TextInputType.number)
                 ],
               )
             ],
@@ -59,7 +60,7 @@ Widget bloodPressureGoal() {
         children: [
           SizedBox(height: size.maxHeight * 0.02),
           AutoSizeTextConfig().TextConfig2(
-              '${DateTime.now().month.toString()}월달 목표 혈압을 적어 주세요',
+              '${timeNow.month.toString()}월달 목표 혈압을 적어 주세요',
               1,
               30,
               15,
@@ -74,14 +75,14 @@ Widget bloodPressureGoal() {
                 children: [
                   AutoSizeTextConfig().TextConfig2(
                       '수축기', 1, 30, 15, Colors.deepPurple, 20, FontWeight.w700),
-                  textEditForm(bloodPressure1, TextInputType.number)
+                  textEditForm(bloodPressureController1, TextInputType.number)
                 ],
               ),
               Column(
                 children: [
                   AutoSizeTextConfig().TextConfig2(
                       '이완기', 1, 30, 15, Colors.deepPurple, 20, FontWeight.w700),
-                  textEditForm(bloodPressure2, TextInputType.number)
+                  textEditForm(bloodPressureController2, TextInputType.number)
                 ],
               ),
             ],
@@ -103,14 +104,14 @@ Widget badFoodGoal() {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AutoSizeTextConfig().TextConfig2(
-                '${DateTime.now().month.toString()}월달 나쁜 음식은 ',
+                '${timeNow.month.toString()}월달 나쁜 음식은 ',
                 1,
                 30,
                 15,
                 Colors.black,
                 20,
                 FontWeight.w700),
-            textEditForm(badFood, TextInputType.number),
+            textEditForm(badFoodController, TextInputType.number),
             AutoSizeTextConfig().TextConfig2(
                 '번 먹고,', 1, 30, 15, Colors.black, 20, FontWeight.w700),
           ],
@@ -127,7 +128,7 @@ Widget badFoodGoal() {
                   Colors.black,
                   20,
                   FontWeight.w700),
-              textEditForm(health, TextInputType.number),
+              textEditForm(healthController, TextInputType.number),
               AutoSizeTextConfig().TextConfig2(
                   '번 할래요!,', 1, 30, 15, Colors.black, 20, FontWeight.w700),
             ],
