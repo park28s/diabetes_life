@@ -1,4 +1,4 @@
-import 'package:diabetes_life/main.dart';
+import 'package:diabetes_life/main_config/main_dateTime.dart';
 import 'package:diabetes_life/main_config/main_widget.dart';
 import 'package:diabetes_life/main_config/text_config.dart';
 import 'package:diabetes_life/pages/goal/goal_page.dart';

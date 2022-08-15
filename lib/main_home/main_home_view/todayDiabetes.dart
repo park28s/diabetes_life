@@ -18,16 +18,23 @@ Widget todayDiabetes() {
           children: [
             Row(
               children: [
-                AutoSizeTextConfig().TextConfig2('식전', 1, 25, 10, Colors.black, 25, FontWeight.w200),
+                AutoSizeTextConfig().TextConfig2('공복', 1, 25, 10, Colors.black, 23, FontWeight.w200),
                 SizedBox(width: size.maxWidth * 0.02),
-                AutoSizeTextConfig().TextConfig2('110', 1, 35, 10, Colors.deepOrangeAccent, 35, FontWeight.bold),
+                AutoSizeTextConfig().TextConfig2('110', 1, 35, 10, Colors.deepOrangeAccent, 30, FontWeight.bold),
               ],
             ),
             Row(
               children: [
-                AutoSizeTextConfig().TextConfig2('식후', 1, 25, 10, Colors.black, 25, FontWeight.w200),
+                AutoSizeTextConfig().TextConfig2('식전', 1, 25, 10, Colors.black, 23, FontWeight.w200),
                 SizedBox(width: size.maxWidth * 0.02),
-                AutoSizeTextConfig().TextConfig2('130', 1, 35, 10, Colors.deepOrangeAccent, 35, FontWeight.bold),
+                AutoSizeTextConfig().TextConfig2('110', 1, 35, 10, Colors.deepOrangeAccent, 30, FontWeight.bold),
+              ],
+            ),
+            Row(
+              children: [
+                AutoSizeTextConfig().TextConfig2('식후', 1, 25, 10, Colors.black, 23, FontWeight.w200),
+                SizedBox(width: size.maxWidth * 0.02),
+                AutoSizeTextConfig().TextConfig2('130', 1, 35, 10, Colors.deepOrangeAccent, 30, FontWeight.bold),
               ],
             ),
           ],

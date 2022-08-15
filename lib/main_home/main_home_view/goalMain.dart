@@ -1,4 +1,4 @@
-import 'package:diabetes_life/main.dart';
+import 'package:diabetes_life/main_config/main_dateTime.dart';
 import 'package:diabetes_life/main_config/text_config.dart';
 import 'package:diabetes_life/pages/model/check_model.dart';
 import 'package:flutter/material.dart';
