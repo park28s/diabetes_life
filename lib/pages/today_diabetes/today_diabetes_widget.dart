@@ -9,8 +9,6 @@ import 'package:diabetes_life/pages/controller/today_diabetes_controller.dart';
 import 'package:diabetes_life/pages/model/today_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 Widget pageName(String text) {
@@ -22,6 +20,11 @@ Widget pageName(String text) {
 Widget tableCalendar() {
   Get.put(TodayDiabetesController());
   TodayDiabetesController.to.tabOnDayFormat();
+  print(DateTime.now());
+  print(TodayDiabetesController.to.selectedDay1!);
+  print('캘린더 클릭시 mainBoxKey = ${mainBox?.keys}');
+  print('캘린더 클릭시 kEvents = ${kEvents}');
+
   return GetBuilder<TodayDiabetesController>(builder: (controller) {
     return coverContainer(
       mainWidthSize - 15,
@@ -29,7 +32,28 @@ Widget tableCalendar() {
       Colors.white,
       Column(
         children: [
-          TableCalendar(
+          TableCalendar<Event>(
+            calendarBuilders:
+                CalendarBuilders(markerBuilder: (context, day, list) {
+              if (list.length == 0) {
+                return null;
+              } else
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.redAccent,
+                      maxRadius: 10,
+                      minRadius: 7,
+                      child: Text(
+                        list.length.toString(),
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                );
+            }),
+            eventLoader: (day) => controller.getEventsForDay(day),
             focusedDay: controller.focusedDay1,
             firstDay: firstDay,
             lastDay: lastDay,
@@ -45,6 +69,11 @@ Widget tableCalendar() {
                 print('1');
                 print('selectedDay == ${selectedDay}');
                 controller.tabOnDaySelected(selectedDay, focusedDay);
+                // 하단 리스트 변화 감지해서 이벤트 표시
+                controller.selectedEvents.value =
+                    controller.getEventsForDay(selectedDay);
+                controller.selectedDay3 = selectedDay;
+                print(TodayDiabetesController.to.selectedEvents.value);
               }
             },
             onFormatChanged: (format) {
@@ -61,13 +90,20 @@ Widget tableCalendar() {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ElevatedButton(
+              // MaterialButton(onPressed: () {}, child: Text('data'), color: Colors.blue),
+              MaterialButton(
+                  color: Colors.indigo,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
                   onPressed: () {
                     TodayDiabetesController.to.tabOnDayFormat();
                   },
                   child: AutoSizeTextConfig().TextConfig1(
                       '오늘 날짜로 바로가기', 1, Colors.white, FontWeight.w700)),
-              ElevatedButton(
+              MaterialButton(
+                  color: Colors.indigo,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
                   onPressed: () {
                     showTimePickerPop(Get.context);
                   },
@@ -89,24 +125,20 @@ void showTimePickerPop(context) {
   selectedTime.then(
     (TimeOfDay) {
       if (TimeOfDay == null) {
+        print(TimeOfDay);
         return null;
       }
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          final saveDate = '${TodayDiabetesController.to.selectedDay1!.year}-'
-              '${TodayDiabetesController.to.selectedDay1!.month < 10 ? '0${TodayDiabetesController.to.selectedDay1!.month}' : TodayDiabetesController.to.selectedDay1!.month}-'
-              '${TodayDiabetesController.to.selectedDay1!.day < 10 ? '0${TodayDiabetesController.to.selectedDay1!.day}' : TodayDiabetesController.to.selectedDay1!.day}';
-          final saveTime =
-              '${TimeOfDay.hour < 10 ? '0${TimeOfDay.hour}' : TimeOfDay.hour}-'
-              '${TimeOfDay.minute < 10 ? '0${TimeOfDay.minute}' : TimeOfDay.minute}';
+          //  print('selectedTime == ${DateFormat('hh:mm').parse(selectedTime.toString())}');
           final saveDateTime =
               '${TodayDiabetesController.to.selectedDay1!.year}-'
               '${TodayDiabetesController.to.selectedDay1!.month < 10 ? '0${TodayDiabetesController.to.selectedDay1!.month}' : TodayDiabetesController.to.selectedDay1!.month}-'
-              '${TodayDiabetesController.to.selectedDay1!.day < 10 ? '0${TodayDiabetesController.to.selectedDay1!.day}' : TodayDiabetesController.to.selectedDay1!.day}-'
-              '${TimeOfDay.hour < 10 ? '0${TimeOfDay.hour}' : TimeOfDay.hour}-'
-              '${TimeOfDay.minute < 10 ? '0${TimeOfDay.minute}' : TimeOfDay.minute}';
-          ;
+              '${TodayDiabetesController.to.selectedDay1!.day < 10 ? '0${TodayDiabetesController.to.selectedDay1!.day}' : TodayDiabetesController.to.selectedDay1!.day} '
+              '${TimeOfDay.hour < 10 ? '0${TimeOfDay.hour}' : TimeOfDay.hour}:'
+              '${TimeOfDay.minute < 10 ? '0${TimeOfDay.minute}' : TimeOfDay.minute}:'
+              '${'00.000'}';
           return GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),
             child: AlertDialog(
@@ -140,24 +172,30 @@ void showTimePickerPop(context) {
                       if (formKey2.currentState!.validate()) {
                         if (TodayDiabetesController.to.selectedItem.value ==
                             '공복')
-                          mainBox?.put(saveDateTime, {
+                          await mainBox?.put(saveDateTime.toString(), {
+                            '날짜': saveDateTime,
                             '공복': int.parse(diabetesCreateController.text)
-                          }).whenComplete(
-                              () => getSnackBar('완료', '등록이 완료 되었습니다!'));
+                          }).whenComplete(() {
+                            todayDiabetesWhenComplete();
+                          }).whenComplete(() => kEvents.addAll(eventSource));
                         if (TodayDiabetesController.to.selectedItem.value ==
                             '식전')
-                          mainBox?.put(saveDateTime, {
+                          await mainBox?.put(saveDateTime.toString(), {
+                            '날짜': saveDateTime,
                             '식전': int.parse(diabetesCreateController.text)
-                          }).whenComplete(
-                              () => getSnackBar('완료', '등록이 완료 되었습니다!'));
+                          }).whenComplete(() {
+                            todayDiabetesWhenComplete();
+                          }).whenComplete(() => kEvents.addAll(eventSource));
                         if (TodayDiabetesController.to.selectedItem.value ==
                             '식후')
-                          mainBox?.put(saveDateTime, {
+                          await mainBox?.put(saveDateTime.toString(), {
+                            '날짜': saveDateTime,
                             '식후': int.parse(diabetesCreateController.text)
-                          }).whenComplete(
-                              () => getSnackBar('완료', '등록이 완료 되었습니다!'));
+                          }).whenComplete(() {
+                            todayDiabetesWhenComplete();
+                          }).whenComplete(() => kEvents.addAll(eventSource));
 
-                        return Get.back();
+                        return TodayDiabetesController.to.selectedEventWrite();
                       } else {
                         return getSnackBar(
                             '입력이 잘못됐어요!', '빈곳이 없는지, 숫자로 넣어주신게 맞는지 확인해 주세요');
@@ -245,22 +283,127 @@ Widget diabetesTextForm() {
 
 // 선택날짜에 저장되어 있는 리스트 불러오기
 Widget selectedList() {
-  return ValueListenableBuilder(
-      valueListenable: Hive.box<Map<dynamic, dynamic>>('mainBox').listenable(),
-      builder: (BuildContext, Box box, child) {
-        return Container(
-          width: mainWidthSize,
-          height: 100,
-          child: ListView.builder(
-              itemCount: box.keys.length,
-              itemBuilder: (BuildContext, int index) {
-                final itemDate = box.keys.toList()[index];
-                final itemKey = box.values.toList()[index].keys.join();
-                final itemValue = box.values.toList()[index].values.join();
-                return Text(
-                    '${itemDate.toString().substring(0, 10)} / ${itemDate.toString().substring(11, 16)} / ${itemKey} / ${itemValue}');
-              }),
-        );
-      });
+  return GetBuilder<TodayDiabetesController>(builder: (controller1) {
+    controller1.selectedDay3 = controller1.focusedDay1;
+    final date = controller1.selectedDay3.toString().substring(0, 11);
+    DateTime dateTime = DateTime.parse('$date${'00:00:00.000'}');
+    controller1.selectedEvents.value = controller1.getEventsForDay(dateTime);
+    return Expanded(
+      child: ValueListenableBuilder<List<Event>>(
+          valueListenable: controller1.selectedEvents,
+          builder: (BuildContext, value, child) {
+            return Container(
+              width: mainWidthSize - 15,
+              child: ListView.builder(
+                  itemCount: value.length, //box.keys.length,
+                  itemBuilder: (BuildContext, int index) {
+                    var result = value
+                        .asMap()[index]
+                        .toString()
+                        .replaceRange(0, 34, '')
+                        .replaceAll('}', '');
+                    var nameResult = value
+                        .asMap()[index]
+                        .toString()
+                        .replaceRange(0, 30, '')
+                        .replaceRange(2, null, '');
+                    var timeResult = value
+                        .asMap()[index]
+                        .toString()
+                        .replaceRange(0, 15, '')
+                        .replaceRange(6, null, '');
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 3, bottom: 3),
+                          child: coverContainer(
+                              mainWidthSize > 750 ? 650 : 280,
+                              Colors.blueAccent,
+                              Colors.white,
+                              Padding(
+                                padding: const EdgeInsets.all(7),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        TextConfig().TextConfig2(
+                                            '${result} mg/dL',
+                                            15,
+                                            FontWeight.w500,
+                                            Colors.black),
+                                        SizedBox(height: 8),
+                                        TextConfig().TextConfig2(
+                                            '측정 시간  ${timeResult}',
+                                            15,
+                                            FontWeight.w500,
+                                            Colors.black),
+                                      ],
+                                    ),
+                                    TextConfig().TextConfig2('|', 20,
+                                        FontWeight.w500, Colors.redAccent),
+                                    TextConfig().TextConfig2('${nameResult}',
+                                        20, FontWeight.w500, Colors.black),
+                                  ],
+                                ),
+                              )),
+                        ),
+                        MaterialButton(
+                            color: Colors.grey.shade600,
+                            minWidth: 60,
+                            height: 60,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            onPressed: () async {
+                              final kEventsKey = await value
+                                  .toList()[index]
+                                  .toString()
+                                  .substring(5, 28);
+
+                              await mainBox?.delete(kEventsKey);
+                              kEvents.clear();
+                              await eventPut().whenComplete(
+                                  () => kEvents.addAll(eventSource));
+                              print('삭제 누르고 kEvents ${kEvents}');
+                              print('삭제 누르고 mainBox ${mainBox?.toMap()}');
+                              controller1.selectedEventDel();
+                              todayDiabetesMainList[0].removeAt(index);
+                              todayDiabetesMain();
+                            },
+                            child: TextConfig().TextConfig2(
+                                '삭제', 15, FontWeight.w500, Colors.white))
+                      ],
+                    );
+                  }),
+            );
+          }),
+    );
+  });
 }
-// 날짜를 선택하면 a 변수에 선택 날짜+10 등록 /  box.get(a) 있으면 가져오고 없으면 널 반환
+
+Future eventPut() async {
+  eventSource.clear();
+  print('eventPut 실행시 mainBox = ${mainBox?.toMap()}');
+  mainBox?.toMap().forEach(
+    (boxKey, boxValue) {
+      String date = boxKey.toString().substring(0, 11);
+      DateTime dateTime = DateTime.parse('$date${'00:00:00.000'}');
+      if (eventSource.containsKey(dateTime)) {
+        print('eventSource${eventSource}');
+        eventSource.update(
+            dateTime,
+            (value) => value
+              ..add(
+                Event('${boxValue}'),
+              ));
+      } else {
+        print('eventSource${eventSource}');
+        eventSource.addAll({
+          dateTime: [Event('${boxValue}')]
+        });
+      }
+    },
+  );
+}

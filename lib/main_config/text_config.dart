@@ -11,6 +11,14 @@ class TextConfig {
             color: color,
             fontFamily: 'MaruBuri'));
   }
+  TextConfig2(String text, double size, dynamic weight, dynamic color) {
+    return Text(text,
+        style: TextStyle(
+            fontSize: size,
+            fontWeight: weight,
+            color: color,
+            fontFamily: ''));
+  }
 }
 
 class AutoSizeTextConfig {

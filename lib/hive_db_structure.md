@@ -15,7 +15,7 @@ Hive.openBox<CheckModel>('check')
                 CheckModel(diabetesEmptyStomach...)
 
 # < 오늘의혈당 >
-Hive.openBox<TodayModel>('todayModel');
+Hive.openBox<Map<dynamic, dynamic>>('mainBox');
 - 공복 : dayDiabetesEmptyStomach
 - 식전 : dayDiabetesBeforeMeal
 - 식후 : dayDiabetesAfterMeal
@@ -23,7 +23,7 @@ Hive.openBox<TodayModel>('todayModel');
 - 혈당(이완기) : dayBloodPressure2
 - 나쁜음식 : dayBadFood
 - 운동 : dayHealth
-- 저장위치 = Hive.box<TodayModel>('todayModel')
-          .put('${saveDate}', TodayModel(
-          dayDiabetesEmptyStomach: int.parse(diabetesCreateController.text)));
+- 저장위치 = Hive.box<Map<dynamic, dynamic>>('mainBox')
+           .put(saveDateTime, 
+          {'공복': int.parse(diabetesCreateController.text);
 

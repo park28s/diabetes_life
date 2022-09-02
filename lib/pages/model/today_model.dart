@@ -1,6 +1,11 @@
+import 'package:diabetes_life/pages/controller/today_diabetes_controller.dart';
 import 'package:hive/hive.dart';
 
 part 'today_model.g.dart';
+
+Map<DateTime, List<Event>> eventSource = {};
+List todayDiabetesMainList = [];
+Map<String, int> todayDiabetesMainMap = {};
 
 @HiveType(typeId: 2)
 class TodayModel extends HiveObject {
