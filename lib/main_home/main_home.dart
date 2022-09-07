@@ -10,6 +10,7 @@ import 'package:diabetes_life/main_home/main_home_view/todayFood.dart';
 import 'package:diabetes_life/main_home/main_home_view/todayHealth.dart';
 import 'package:diabetes_life/main_home/main_widget.dart';
 import 'package:diabetes_life/pages/goal/goal_page.dart';
+import 'package:diabetes_life/pages/today_bloodpressure/today_bloodpressure_page.dart';
 import 'package:diabetes_life/pages/today_diabetes/today_diabetes_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -33,21 +34,27 @@ class MainHome extends StatelessWidget {
                   SizedBox(height: size.maxHeight * 0.02),
                   InkWell(
                     onTap: () => Get.to(() => GoalPage()),
-                    child: mainContainer(size.maxWidth * 0.9, size.maxHeight * 0.4,
-                        Colors.white, goalMain()),
+                    child: mainContainer(size.maxWidth * 0.9,
+                        size.maxHeight * 0.4, Colors.white, goalMain()),
                   ),
                   SizedBox(height: size.maxHeight * 0.02),
                   InkWell(
                     onTap: () => Get.to(() => TodayDiabetesPage()),
-                    child: mainContainer(size.maxWidth * 0.9, size.maxHeight * 0.2,
-                        Colors.white, todayDiabetes()),
+                    child: mainContainer(size.maxWidth * 0.9,
+                        size.maxHeight * 0.2, Colors.white, todayDiabetes()),
                   ),
                   SizedBox(height: size.maxHeight * 0.02),
                   mainContainer(size.maxWidth * 0.9, size.maxHeight * 0.15,
                       Colors.white, todayDangHwa()),
                   SizedBox(height: size.maxHeight * 0.02),
-                  mainContainer(size.maxWidth * 0.9, size.maxHeight * 0.2,
-                      Colors.white, todayBloodPressure()),
+                  InkWell(
+                    onTap: () => Get.to(() => TodayBloodPressure()),
+                    child: mainContainer(
+                        size.maxWidth * 0.9,
+                        size.maxHeight * 0.2,
+                        Colors.white,
+                        todayBloodPressure()),
+                  ),
                   SizedBox(height: size.maxHeight * 0.02),
                   mainContainer(size.maxWidth * 0.9, size.maxHeight * 0.17,
                       Colors.white, todayFood()),

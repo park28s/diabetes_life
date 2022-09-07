@@ -1,11 +1,11 @@
 import 'package:diabetes_life/main_config/main_appbar_default.dart';
 import 'package:diabetes_life/main_config/main_size.dart';
 import 'package:diabetes_life/main_config/main_widget.dart';
-import 'package:diabetes_life/pages/today_diabetes/today_diabetes_widget.dart';
+import 'package:diabetes_life/pages/today_bloodpressure/today_bloodpressure_widget.dart';
 import 'package:flutter/material.dart';
 
-class TodayDiabetesPage extends StatelessWidget {
-  const TodayDiabetesPage({Key? key}) : super(key: key);
+class TodayBloodPressure extends StatelessWidget {
+  const TodayBloodPressure({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +16,15 @@ class TodayDiabetesPage extends StatelessWidget {
         height: mainHeightSize,
         child: LayoutBuilder(
             builder: (context, size) => Column(
-                  children: [
-                    pageName('혈당 관리', Colors.blueAccent),
-                    SizedBox(height: 10),
-                    tableCalendar(),
-                    SizedBox(height: 10),
-                    selectedList()
-                  ],
-                )),
+              children: [
+                pageName('혈압 관리', Colors.redAccent),
+                SizedBox(height: 10),
+                bloodTableCalendar(),
+                SizedBox(height: 10),
+                selectedList2()
+              ],
+            )
+        ),
       ),
     );
   }

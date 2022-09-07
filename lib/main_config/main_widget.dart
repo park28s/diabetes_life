@@ -1,3 +1,4 @@
+import 'package:diabetes_life/main_config/text_config.dart';
 import 'package:diabetes_life/pages/controller/today_diabetes_controller.dart';
 import 'package:diabetes_life/pages/goal/goal_page.dart';
 import 'package:flutter/material.dart';
@@ -52,4 +53,10 @@ void textFormClear() {
   badFoodController.clear();
   healthController.clear();
   diabetesCreateController.clear();
+}
+
+// 각 페이지별 메인 네임 설정
+Widget pageName(String text, Color color) {
+  return AutoSizeTextConfig()
+      .TextConfig2(text, 1, 20, 15, color, 20, FontWeight.w700);
 }

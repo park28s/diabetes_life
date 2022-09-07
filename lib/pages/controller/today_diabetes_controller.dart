@@ -154,7 +154,7 @@ void todayDiabetesMain() {
     print('오늘의 혈당 측정 전 입니다.');
 
     Get.put(TodayDiabetesController());
-    TodayDiabetesController.to.emptyStomach?.value = 0;
-    print(TodayDiabetesController.to.emptyStomach?.value);
+    todayDiabetesMainMap.clear();
+    TodayDiabetesController.to.mainTodayDiabetesGet();
   }
 }

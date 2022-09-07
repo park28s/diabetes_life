@@ -2,9 +2,11 @@ import 'package:diabetes_life/firebase_options.dart';
 import 'package:diabetes_life/main_config/main_hive_config.dart';
 import 'package:diabetes_life/main_config/main_size.dart';
 import 'package:diabetes_life/main_home/main_home.dart';
+import 'package:diabetes_life/pages/controller/today_bloodpressure_controller.dart';
 import 'package:diabetes_life/pages/controller/today_diabetes_controller.dart';
 import 'package:diabetes_life/pages/model/check_model.dart';
 import 'package:diabetes_life/pages/model/today_model.dart';
+import 'package:diabetes_life/pages/today_bloodpressure/today_bloodpressure_widget.dart';
 import 'package:diabetes_life/pages/today_diabetes/today_diabetes_widget.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +24,7 @@ void main() async {
   await HiveConfig().openBox();
   await HiveConfig().boxSetting();
   await eventPut();
+  await eventPut2();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   initializeDateFormatting().then((value) => runApp(const DiabetesLife()));
 }
@@ -32,6 +35,7 @@ class DiabetesLife extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     todayDiabetesMain();
+    todayBloodMain();
     print(
         '기기 실 사이즈 = Width : ${window.physicalSize.width} / Height : ${window.physicalSize.height}');
     print('기기 논리 사이즈 = Width : ${mainWidthSize} / Height : ${mainHeightSize}');

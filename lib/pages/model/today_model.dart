@@ -1,11 +1,15 @@
+import 'package:diabetes_life/pages/controller/today_bloodpressure_controller.dart';
 import 'package:diabetes_life/pages/controller/today_diabetes_controller.dart';
 import 'package:hive/hive.dart';
 
 part 'today_model.g.dart';
 
-Map<DateTime, List<Event>> eventSource = {};
-List todayDiabetesMainList = [];
+Map<DateTime, List<Event>> eventSource = {}; //혈당 이벤트 소스
+Map<DateTime, List<BloodEvent>> eventSource2 = {}; //혈압 이벤트 소스
 Map<String, int> todayDiabetesMainMap = {};
+Map<String, int> todayBloodMainMap = {};
+List todayDiabetesMainList = [];
+List todayBloodMainList = [];
 
 @HiveType(typeId: 2)
 class TodayModel extends HiveObject {
