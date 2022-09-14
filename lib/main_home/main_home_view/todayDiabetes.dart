@@ -13,10 +13,10 @@ Widget todayDiabetes() {
       children: [
         SizedBox(height: size.maxHeight * 0.05),
         AutoSizeTextConfig().TextConfig2(
-            '오늘의 혈당', 1, 30, 15, Colors.black, 10, FontWeight.w700),
+            '오늘의 혈당', 1, 30, 13, Colors.black, 10, FontWeight.w700),
         SizedBox(height: size.maxHeight * 0.05),
         AutoSizeTextConfig().TextConfig2(
-            '(마지막 측정 기준)', 1, 30, 15, Colors.black, 10, FontWeight.w700),
+            '(마지막 측정 기준)', 1, 30, 13, Colors.black, 10, FontWeight.w700),
         SizedBox(height: size.maxHeight * 0.05),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

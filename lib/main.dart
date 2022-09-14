@@ -23,8 +23,7 @@ void main() async {
   Hive.registerAdapter(TodayModelAdapter());
   await HiveConfig().openBox();
   await HiveConfig().boxSetting();
-  await eventPut();
-  await eventPut2();
+  await HiveConfig().eventSetting();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   initializeDateFormatting().then((value) => runApp(const DiabetesLife()));
 }

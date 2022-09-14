@@ -12,6 +12,7 @@ import 'package:diabetes_life/main_home/main_widget.dart';
 import 'package:diabetes_life/pages/goal/goal_page.dart';
 import 'package:diabetes_life/pages/today_bloodpressure/today_bloodpressure_page.dart';
 import 'package:diabetes_life/pages/today_diabetes/today_diabetes_page.dart';
+import 'package:diabetes_life/pages/today_food/today_food_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,46 +23,51 @@ class MainHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBarDefault(),
-        body: Container(
-          alignment: Alignment.center,
-          width: mainWidthSize,
-          height: mainHeightSize,
-          color: Colors.grey.shade200,
-          child: LayoutBuilder(
-            builder: (context, size) => SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(height: size.maxHeight * 0.02),
-                  InkWell(
-                    onTap: () => Get.to(() => GoalPage()),
-                    child: mainContainer(size.maxWidth * 0.9,
-                        size.maxHeight * 0.4, Colors.white, goalMain()),
-                  ),
-                  SizedBox(height: size.maxHeight * 0.02),
-                  InkWell(
-                    onTap: () => Get.to(() => TodayDiabetesPage()),
-                    child: mainContainer(size.maxWidth * 0.9,
-                        size.maxHeight * 0.2, Colors.white, todayDiabetes()),
-                  ),
-                  SizedBox(height: size.maxHeight * 0.02),
-                  mainContainer(size.maxWidth * 0.9, size.maxHeight * 0.15,
-                      Colors.white, todayDangHwa()),
-                  SizedBox(height: size.maxHeight * 0.02),
-                  InkWell(
-                    onTap: () => Get.to(() => TodayBloodPressure()),
-                    child: mainContainer(
-                        size.maxWidth * 0.9,
-                        size.maxHeight * 0.2,
-                        Colors.white,
-                        todayBloodPressure()),
-                  ),
-                  SizedBox(height: size.maxHeight * 0.02),
-                  mainContainer(size.maxWidth * 0.9, size.maxHeight * 0.17,
-                      Colors.white, todayFood()),
-                  SizedBox(height: size.maxHeight * 0.02),
-                  mainContainer(size.maxWidth * 0.9, size.maxHeight * 0.2,
-                      Colors.white, todayHealth()),
-                ],
+        body: SafeArea(
+          child: Container(
+            alignment: Alignment.center,
+            width: mainWidthSize,
+            height: mainHeightSize,
+            color: Colors.grey.shade200,
+            child: LayoutBuilder(
+              builder: (context, size) => SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(height: size.maxHeight * 0.02),
+                    InkWell(
+                      onTap: () => Get.to(() => GoalPage()),
+                      child: mainContainer(size.maxWidth * 0.9,
+                          size.maxHeight * 0.4, Colors.white, goalMain()),
+                    ),
+                    SizedBox(height: size.maxHeight * 0.02),
+                    InkWell(
+                      onTap: () => Get.to(() => TodayDiabetesPage()),
+                      child: mainContainer(size.maxWidth * 0.9,
+                          size.maxHeight * 0.2, Colors.white, todayDiabetes()),
+                    ),
+                    SizedBox(height: size.maxHeight * 0.02),
+                    mainContainer(size.maxWidth * 0.9, size.maxHeight * 0.15,
+                        Colors.white, todayDangHwa()),
+                    SizedBox(height: size.maxHeight * 0.02),
+                    InkWell(
+                      onTap: () => Get.to(() => TodayBloodPressure()),
+                      child: mainContainer(
+                          size.maxWidth * 0.9,
+                          size.maxHeight * 0.2,
+                          Colors.white,
+                          todayBloodPressure()),
+                    ),
+                    SizedBox(height: size.maxHeight * 0.02),
+                    InkWell(
+                      onTap: () => Get.to(() => TodayFood()),
+                      child: mainContainer(size.maxWidth * 0.9, size.maxHeight * 0.17,
+                          Colors.white, todayFood()),
+                    ),
+                    SizedBox(height: size.maxHeight * 0.02),
+                    mainContainer(size.maxWidth * 0.9, size.maxHeight * 0.2,
+                        Colors.white, todayHealth()),
+                  ],
+                ),
               ),
             ),
           ),

@@ -7,8 +7,8 @@ import 'package:get/get.dart';
 // 메인페이지 텍스트폼
 Widget textEditForm(dynamic controller, dynamic keyboardType) {
   return Container(
-    width: 60,
-    height: 50,
+    width: 50,
+    height: 30,
     child: TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (v) {
@@ -58,5 +58,5 @@ void textFormClear() {
 // 각 페이지별 메인 네임 설정
 Widget pageName(String text, Color color) {
   return AutoSizeTextConfig()
-      .TextConfig2(text, 1, 20, 15, color, 20, FontWeight.w700);
+      .TextConfig2(text, 1, 20, 13, color, 20, FontWeight.w700);
 }
