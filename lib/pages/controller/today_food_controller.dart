@@ -43,32 +43,42 @@ class TodayFoodController extends GetxController {
   }
 
   void mainTodayFoodGet() {
-    //todayFoodSumMainList.clear();
-    final b = todayFoodMainMap['않좋은 음식'] == null? 0 : todayFoodMainMap['않좋은 음식'];
-    print('dfdf == ${todayFoodMainMap['않좋은 음식']}');
-    todayFoodSumMainList.addAll({b!});
-    print(todayFoodSumMainList);
-    final cc = todayFoodSumMainList.reduce((value, element)  {
+    final mainBadFood =
+        todayFoodMainMap['않좋은 음식'] == null ? 0 : todayFoodMainMap['않좋은 음식'];
+    final mainGoodFood =
+        todayFoodMainMap['좋은음식'] == null ? 0 : todayFoodMainMap['좋은음식'];
+    final mainSosoFood =
+        todayFoodMainMap['애매한음식'] == null ? 0 : todayFoodMainMap['애매한음식'];
+    print('안좋은음식 Map == ${todayFoodMainMap['않좋은 음식']}');
+    print('좋은음식 Map == ${todayFoodMainMap['좋은음식']}');
+    print('애매한음식 Map == ${todayFoodMainMap['애매한음식']}');
+    todayBadFoodSumMainList.addAll({mainBadFood!});
+    todayGoodFoodSumMainList.addAll({mainGoodFood!});
+    todaySosoFoodSumMainList.addAll({mainSosoFood!});
+    print('mainSosoFood ${mainSosoFood}');
+    final sumBadFood = todayBadFoodSumMainList.reduce((value, element) {
       print('${value} / ${element}');
-      return value + element;});
-    print('cc == ${cc}');
-    //todayFoodSumMainList.clear();
+      return value + element;
+    });
+    print('sumBadFood == ${sumBadFood}');
+    badFood.value = sumBadFood;
+    print('badFood = ${badFood.value}');
 
-    /*if (todayBloodMainMap['수축기'] == null) {
-      dayBloodPressure1.value = 0;
-    } else {
-      dayBloodPressure1.value = todayBloodMainMap['수축기']!;
-    }
+    final sumGoodFood = todayGoodFoodSumMainList.reduce((value, element) {
+      print('${value} / ${element}');
+      return value + element;
+    });
+    print('sumGoodFood == ${sumGoodFood}');
+    goodFood.value = sumGoodFood;
+    print('goodFood = ${goodFood.value}');
 
-    if (todayBloodMainMap['이완기'] == null) {
-      dayBloodPressure2.value = 0;
-    } else {
-      dayBloodPressure2.value = todayBloodMainMap['이완기']!;
-    }
-
-    print('GetX === 수축기 ${dayBloodPressure1} 이완기 ${dayBloodPressure2}');
-    print(
-        'GetX2 === 수축기 ${todayBloodMainMap['수축기']} 이완기 ${todayBloodMainMap['이완기']}');*/
+    final sumSosoFood = todaySosoFoodSumMainList.reduce((value, element) {
+      print('${value} / ${element}');
+      return value + element;
+    });
+    print('sumSosoFood == ${sumSosoFood}');
+    sosoFood.value = sumSosoFood;
+    print('sosoFood = ${sosoFood.value}');
   }
 
   late final ValueNotifier<List<FoodEvent>> selectedEvents3;
@@ -148,6 +158,9 @@ int getHashCode(DateTime key) {
 
 void todayFoodWhenComplete() {
   fEvents.clear();
+  todayBadFoodSumMainList.clear();
+  todayGoodFoodSumMainList.clear();
+  todaySosoFoodSumMainList.clear();
   eventPut3().then((value) => getSnackBar('완료', '등록이 완료 되었습니다!'));
 
   print('등록 누르고 fEvents = ${fEvents}');
@@ -173,6 +186,9 @@ void todayFoodMain() {
     print('todayFoodMainList == ${todayFoodMainList[0]}');
     print('eventSource3 == ${eventSource3.values.first[0]}');
     todayFoodMainMap.clear();
+    todayBadFoodSumMainList.clear();
+    todayGoodFoodSumMainList.clear();
+    todaySosoFoodSumMainList.clear();
     todayFoodMainList[0].forEach((e) {
       print('e == ${e.toString()}');
       String a = e.toString().substring(30, 36);
@@ -202,14 +218,16 @@ void todayFoodMain() {
       print('g = ${g}'); // 애매한음식 갯수
       todayFoodMainMap.addAll({a: b, c: d, f: g});
       print('todayFoodMainMap == ${todayFoodMainMap}');
+
+      Get.lazyPut(() => TodayFoodController());
+      TodayFoodController.to.mainTodayFoodGet();
     });
-    TodayFoodController.to.mainTodayFoodGet();
   } catch (e) {
     print(e);
     print('오늘의 음식 등록 전 입니다.');
 
     todayFoodMainMap.clear();
-    Get.put(TodayFoodController());
+    Get.lazyPut(() => TodayFoodController());
     TodayFoodController.to.mainTodayFoodGet();
   }
 }

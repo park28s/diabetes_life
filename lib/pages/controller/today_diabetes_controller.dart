@@ -153,8 +153,8 @@ void todayDiabetesMain() {
   } catch (e) {
     print('오늘의 혈당 측정 전 입니다.');
 
-    Get.put(TodayDiabetesController());
     todayDiabetesMainMap.clear();
+    Get.put(TodayDiabetesController());
     TodayDiabetesController.to.mainTodayDiabetesGet();
   }
 }

@@ -117,6 +117,9 @@ Widget tableCalendar() {
 
 // 음식등록 팝업 위젯 상단
 void showTimePickerPop3(context) {
+  TodayFoodController.to.badFood.value = 0;
+  TodayFoodController.to.goodFood.value = 0;
+  TodayFoodController.to.sosoFood.value = 0;
   Future<TimeOfDay?> selectedTime =
       showTimePicker(context: context, initialTime: TimeOfDay.now());
   selectedTime.then(
@@ -401,10 +404,10 @@ Widget selectedList3() {
                             print('삭제 누르고 fEvents ${fEvents}');
                             print('삭제 누르고 foodBox ${foodBox?.toMap().values}');
                             controller1.selectedEventDel();
-                            todayFoodMainList[0].removeAt(index);
-                            final b = todayFoodMainMap['않좋은 음식'] == null? 0 : todayFoodMainMap['않좋은 음식'];
-                            todayFoodSumMainList.remove(b);
-                            print('sumsum = ${todayFoodSumMainList}');
+                            todayBadFoodSumMainList.clear();
+                            todayGoodFoodSumMainList.clear();
+                            todaySosoFoodSumMainList.clear();
+                             print('SUM = ${todayBadFoodSumMainList}');
                             todayFoodMain();
                           },
                           child: TextConfig().TextConfig2(
