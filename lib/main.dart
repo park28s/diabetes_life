@@ -16,6 +16,7 @@ import 'dart:ui';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
+// 제대로 들어가는지 테스트?
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
