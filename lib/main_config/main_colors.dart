@@ -19,3 +19,17 @@ class FoodListColors {
   Color bad = Colors.redAccent;
   Color soso = Colors.purpleAccent;
 }
+
+// 운동 리스트 색상
+class HealthListColors {
+  Color black = Colors.black;
+  Color deepPurple = Colors.deepPurple;
+  Color amber = Colors.amber;
+  Color red = Colors.red;
+  Color blueAccent = Colors.blueAccent;
+  Color brown = Colors.brown;
+  Color indigoAccent = Colors.indigoAccent;
+  Color orange = Colors.orange;
+  Color blueGrey = Colors.blueGrey;
+  Color pinkAccent = Colors.pinkAccent;
+}

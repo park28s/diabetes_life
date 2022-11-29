@@ -22,7 +22,6 @@ class CustomNaviBarController extends GetxController with GetTickerProviderState
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     final systemTheme = SystemUiOverlayStyle.light.copyWith(
       systemNavigationBarColor: Colors.pinkAccent,

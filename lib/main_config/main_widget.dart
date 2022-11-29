@@ -1,6 +1,7 @@
 import 'package:diabetes_life/main_config/text_config.dart';
 import 'package:diabetes_life/pages/controller/today_diabetes_controller.dart';
 import 'package:diabetes_life/pages/goal/goal_page.dart';
+import 'package:diabetes_life/pages/today_health/health_management_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -53,6 +54,7 @@ void textFormClear() {
   badFoodController.clear();
   healthController.clear();
   diabetesCreateController.clear();
+  healthListTextEditing.clear();
 }
 
 // 각 페이지별 메인 네임 설정

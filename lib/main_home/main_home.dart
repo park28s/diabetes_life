@@ -13,6 +13,7 @@ import 'package:diabetes_life/pages/goal/goal_page.dart';
 import 'package:diabetes_life/pages/today_bloodpressure/today_bloodpressure_page.dart';
 import 'package:diabetes_life/pages/today_diabetes/today_diabetes_page.dart';
 import 'package:diabetes_life/pages/today_food/today_food_page.dart';
+import 'package:diabetes_life/pages/today_health/today_health_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -64,8 +65,11 @@ class MainHome extends StatelessWidget {
                           Colors.white, todayFood()),
                     ),
                     SizedBox(height: size.maxHeight * 0.02),
-                    mainContainer(size.maxWidth * 0.9, size.maxHeight * 0.2,
-                        Colors.white, todayHealth()),
+                    InkWell(
+                      onTap: () => Get.to(() => TodayHealth()),
+                      child: mainContainer(size.maxWidth * 0.9, size.maxHeight * 0.2,
+                          Colors.white, todayHealth()),
+                    ),
                   ],
                 ),
               ),
