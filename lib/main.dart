@@ -7,8 +7,6 @@ import 'package:diabetes_life/pages/controller/today_diabetes_controller.dart';
 import 'package:diabetes_life/pages/controller/today_food_controller.dart';
 import 'package:diabetes_life/pages/model/check_model.dart';
 import 'package:diabetes_life/pages/model/today_model.dart';
-import 'package:diabetes_life/pages/today_bloodpressure/today_bloodpressure_widget.dart';
-import 'package:diabetes_life/pages/today_diabetes/today_diabetes_widget.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
@@ -16,7 +14,6 @@ import 'dart:ui';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-// 제대로 들어가는지 테스트?
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
