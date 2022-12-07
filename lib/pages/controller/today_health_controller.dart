@@ -22,7 +22,9 @@ class TodayHealthController extends GetxController {
   RxList<dynamic> healthSelect3 = [].obs; //운동색상리스트
   List<dynamic> health = []; //이벤트박스에 운동리스트
   List<dynamic> healthColor = []; //이벤트박스에 운동색상리스트
-  //List<dynamic> testText = []; //선택 이벤트 내용
+  RxList<dynamic> mainPageHealthItem = [].obs; //오늘의운동 메인 아이템
+  RxList<dynamic> mainPageHealthItemColors = [].obs; //오늘의운동 메인 아이템 색상
+
 
   @override
   void onInit() {
@@ -31,6 +33,30 @@ class TodayHealthController extends GetxController {
     selectedEvents4 = ValueNotifier(getEventsForDay(selectedDay3!));
   }
 
+  void voidTodayHealthMainItem() {
+    mainPageHealthItem.clear();
+    mainPageHealthItemColors.clear();
+    int dayHealthLength = health.length;
+    List.generate(
+      dayHealthLength,
+          (index) {
+        int timeHealthLength = health[index].length;
+        List.generate(
+          timeHealthLength,
+              (index1) {
+            var mainHealthItem = health[index][index1];
+            var mainHealthItemColors =
+            healthColor[index][index1];
+            mainPageHealthItem.add(mainHealthItem);
+            mainPageHealthItemColors.add(mainHealthItemColors);
+            print('healthItem ${mainHealthItem}');
+            print('mainPageHealthItem ${mainPageHealthItem}');
+            print('mainPageHealthItemColors ${mainPageHealthItemColors}');
+          },
+        );
+      },
+    );
+  }
 
   void dayHealthUpdate() async {
     int index = healthEventBox?.values.length == null

@@ -208,6 +208,7 @@ void showTimePickerPop4(context) {
 
                             print('등록하고 운동 --- ${healthEventBox?.values}');
                             TodayHealthController.to.dayHealthUpdate();
+                            TodayHealthController.to.voidTodayHealthMainItem();
 
                             print('등록하고 이벤트박스맵 = ${healthEventBox?.toMap()}');
                             return TodayHealthController.to
@@ -412,7 +413,6 @@ Widget selectedList4() {
           valueListenable: controller1.selectedEvents4,
           builder: (BuildContext, value, child) {
             print('<------------------');
-            print('asdf ${controller1.selectedEvents4.value}');
             print('healthBox Map = ${healthListBox?.toMap()}');
             print('healEventBox Map = ${healthEventBox?.values}');
             print('value Test = ${value}');
@@ -456,8 +456,8 @@ Widget selectedList4() {
                                   SizedBox(width: 5),
                                   Text(
                                     '|',
-                                    style:
-                                        TextStyle(color: Colors.deepPurpleAccent),
+                                    style: TextStyle(
+                                        color: Colors.deepPurpleAccent),
                                   ),
                                   SizedBox(width: 5),
                                   Expanded(
@@ -514,6 +514,7 @@ Widget selectedList4() {
                             print(
                                 '삭제 누르고 healthBox ${healthEventBox?.toMap().values}');
                             TodayHealthController.to.dayHealthUpdate();
+                            TodayHealthController.to.voidTodayHealthMainItem();
                             controller1.selectedEventDel();
                           },
                           child: TextConfig().TextConfig2(

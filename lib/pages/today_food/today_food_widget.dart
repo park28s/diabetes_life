@@ -126,6 +126,7 @@ void showTimePickerPop3(context) {
     (TimeOfDay) {
       if (TimeOfDay == null) {
         print(TimeOfDay);
+        todayFoodMain();
         return null;
       }
       showDialog(
@@ -180,7 +181,7 @@ void showTimePickerPop3(context) {
             ),
           );
         },
-      );
+      ).then((value) => todayFoodMain());
     },
   );
 }
