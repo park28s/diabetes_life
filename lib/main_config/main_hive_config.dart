@@ -12,6 +12,7 @@ Box<Map<dynamic, dynamic>>? foodBox;
 Box<Map<dynamic, dynamic>>? healthEventBox;
 Box<Map<dynamic, dynamic>>? testBox;
 Box<dynamic>? healthListBox;
+Box<String>? myPromiseBox;
 
 class HiveConfig {
   Future openBox() async {
@@ -22,6 +23,7 @@ class HiveConfig {
     healthEventBox = await Hive.openBox<Map<dynamic, dynamic>>('healthEventBox');
     testBox = await Hive.openBox<Map<dynamic, dynamic>>('testBox');
     healthListBox = await Hive.openBox<dynamic>('healthListBox');
+    myPromiseBox = await Hive.openBox<String>('myPromiseBox');
   }
 
   Future boxSetting() async {
@@ -31,6 +33,7 @@ class HiveConfig {
     healthEventBox = await Hive.box<Map<dynamic, dynamic>>('healthEventBox');
     testBox = await Hive.box<Map<dynamic, dynamic>>('testBox');
     healthListBox = await Hive.box<dynamic>('healthListBox');
+    myPromiseBox = await Hive.box<String>('myPromiseBox');
   }
 
   Future eventSetting() async {

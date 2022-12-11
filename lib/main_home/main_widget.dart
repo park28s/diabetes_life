@@ -1,7 +1,10 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:diabetes_life/main_config/main_colors.dart';
 import 'package:diabetes_life/main_config/text_config.dart';
+import 'package:diabetes_life/main_home/custom_bottom_navi/navi_widget/diabetes_management_page.dart';
+import 'package:diabetes_life/main_home/custom_bottom_navi/navi_widget/myinfo_page.dart';
 import 'package:diabetes_life/main_home/main_controller.dart';
+import 'package:diabetes_life/main_home/main_home.dart';
 import 'package:diabetes_life/main_home/main_total_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,7 +31,7 @@ Widget customAnimatedBar() {
     itemCount: iconList.length,
     tabBuilder: (int index, bool isAction) {
       final color = isAction ? HexColor('#FFA400') : Colors.black;
-      final menuName = ['빠른입력', '내정보', '통계', '설정'];
+      final menuName = ['당뇨관리법', '내정보', '통계', '설정'];
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -50,7 +53,11 @@ Widget customAnimatedBar() {
     gapLocation: GapLocation.center,
     leftCornerRadius: 32,
     rightCornerRadius: 32,
-    onTap: (index) => CustomNaviBarController.to.bottomNavIndex.value = index,
+    onTap: (index) {
+      print('bottomNavIndex ${index}');
+      CustomNaviBarController.to.bottomNavIndex.value = index;
+      naviBarSet();
+    },
     hideAnimationController:
         CustomNaviBarController.to.hideBottomBarAnimationController,
     shadow: BoxShadow(
@@ -62,30 +69,47 @@ Widget customAnimatedBar() {
   );
 }
 
-// 오늘의 음식 메인 컨테이너
-Widget foodContainer(double width, double height, dynamic color, String text) {
-  return Container(
-    alignment: Alignment.center,
-    width: width,
-    height: height,
-    decoration: BoxDecoration(
-      color: color,
-      borderRadius: BorderRadius.circular(5)
-    ),
-    child: Text(text, style: TextStyle(color: Colors.white),)
-  );
+// naviBar == page 매칭
+Widget naviBarSet() {
+  if (CustomNaviBarController.to.bottomNavIndex.value == 5) {
+    return MainHomeViewModel();
+  } else if (CustomNaviBarController.to.bottomNavIndex.value == 0) {
+    return diabetesManagement();
+  } else if (CustomNaviBarController.to.bottomNavIndex.value == 1) {
+    return MyInfo();
+  } else if (CustomNaviBarController.to.bottomNavIndex.value == 2) {
+    return test2();
+  } else if (CustomNaviBarController.to.bottomNavIndex.value == 3) {
+    return test3();
+  }
+  return Center(child: Text('PageErr', style: TextStyle(fontSize: 50)));
 }
 
-// 오늘의 운동 메인 컨테이너
-Widget healthContainer(double width, double height, dynamic color, String text) {
+// 오늘의 음식 메인 컨테이너
+Widget foodContainer(double width, double height, dynamic color, String text) {
   return Container(
       alignment: Alignment.center,
       width: width,
       height: height,
-      decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(5)
-      ),
-      child: Text(text, style: TextStyle(color: Colors.white),)
-  );
+      decoration:
+          BoxDecoration(color: color, borderRadius: BorderRadius.circular(5)),
+      child: Text(
+        text,
+        style: TextStyle(color: Colors.white),
+      ));
+}
+
+// 오늘의 운동 메인 컨테이너
+Widget healthContainer(
+    double width, double height, dynamic color, String text) {
+  return Container(
+      alignment: Alignment.center,
+      width: width,
+      height: height,
+      decoration:
+          BoxDecoration(color: color, borderRadius: BorderRadius.circular(5)),
+      child: Text(
+        text,
+        style: TextStyle(color: Colors.white),
+      ));
 }
