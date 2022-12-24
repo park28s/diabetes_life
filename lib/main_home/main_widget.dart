@@ -1,8 +1,9 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:diabetes_life/main_config/main_colors.dart';
 import 'package:diabetes_life/main_config/text_config.dart';
-import 'package:diabetes_life/main_home/custom_bottom_navi/navi_widget/diabetes_management_page.dart';
-import 'package:diabetes_life/main_home/custom_bottom_navi/navi_widget/myinfo_page.dart';
+import 'package:diabetes_life/main_home/custom_bottom_navi/navi_page/diabetes_management_page.dart';
+import 'package:diabetes_life/main_home/custom_bottom_navi/navi_page/myinfo_page.dart';
+import 'package:diabetes_life/main_home/custom_bottom_navi/navi_page/statistics_page.dart';
 import 'package:diabetes_life/main_home/main_controller.dart';
 import 'package:diabetes_life/main_home/main_home.dart';
 import 'package:diabetes_life/main_home/main_total_model.dart';
@@ -78,7 +79,7 @@ Widget naviBarSet() {
   } else if (CustomNaviBarController.to.bottomNavIndex.value == 1) {
     return MyInfo();
   } else if (CustomNaviBarController.to.bottomNavIndex.value == 2) {
-    return test2();
+    return StatisticsPage();
   } else if (CustomNaviBarController.to.bottomNavIndex.value == 3) {
     return test3();
   }

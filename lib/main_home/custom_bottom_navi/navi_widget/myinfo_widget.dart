@@ -6,28 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-class MyInfo extends StatelessWidget {
-  const MyInfo({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          userAvatar(),
-          userName(),
-          SizedBox(height: 20),
-          notice(),
-          SizedBox(height: 10),
-          myPromise(),
-          SizedBox(height: 10),
-          registerButton(context)
-        ],
-      ),
-    );
-  }
-}
-
 Widget userAvatar() {
   return Center(
     child: CircleAvatar(
@@ -91,7 +69,7 @@ Widget myPromise() {
     return Text(
       text,
       style:
-          TextStyle(color: color, fontSize: size, fontWeight: FontWeight.bold),
+      TextStyle(color: color, fontSize: size, fontWeight: FontWeight.bold),
     );
   }
 
@@ -112,7 +90,15 @@ Widget myPromise() {
             child: ValueListenableBuilder(
               valueListenable: Hive.box<String>('myPromiseBox').listenable(),
               builder: (context, Box<String> box, child) {
-                return Text(
+                return box.values.isEmpty
+                    ? Center(
+                  child: Text('아직 등록이 안되어 있어요!',
+                      style: TextStyle(
+                          fontSize: 15,
+                          height: 1.5,
+                          color: Colors.redAccent)),
+                )
+                    : Text(
                   '${box.values.first}',
                   style: TextStyle(fontSize: 15, height: 1.5),
                 );
@@ -145,7 +131,7 @@ Widget registerButton(context) {
               labelStyle: TextStyle(fontSize: 20),
               contentPadding: EdgeInsets.all(25),
               border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             ),
             style: TextStyle(fontSize: 25),
           ),

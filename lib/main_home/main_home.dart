@@ -113,15 +113,6 @@ class MainHomeViewModel extends StatelessWidget {
 
 //////////////////// Test Page  ///////////////////////////////
 
-class test2 extends StatelessWidget {
-  const test2({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text('testPage2', style: TextStyle(fontSize: 50)));
-  }
-}
-
 class test3 extends StatelessWidget {
   const test3({Key? key}) : super(key: key);
 
@@ -131,81 +122,3 @@ class test3 extends StatelessWidget {
   }
 }
 ///////////////////////////////////////////////////////////
-
-/*class MainHome1 extends StatelessWidget {
-  const MainHome1({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBarDefault(),
-        body: SafeArea(
-          child: Container(
-            alignment: Alignment.center,
-            width: mainWidthSize,
-            height: mainHeightSize,
-            color: Colors.grey.shade200,
-            child: LayoutBuilder(
-              builder: (context, size) => SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(height: size.maxHeight * 0.02),
-                    InkWell(
-                      onTap: () => Get.to(() => GoalPage()),
-                      child: mainContainer(size.maxWidth * 0.9,
-                          size.maxHeight * 0.4, Colors.white, goalMain()),
-                    ),
-                    SizedBox(height: size.maxHeight * 0.02),
-                    InkWell(
-                      onTap: () => Get.to(() => TodayDiabetesPage()),
-                      child: mainContainer(size.maxWidth * 0.9,
-                          size.maxHeight * 0.2, Colors.white, todayDiabetes()),
-                    ),
-                    SizedBox(height: size.maxHeight * 0.02),
-                    mainContainer(size.maxWidth * 0.9, size.maxHeight * 0.15,
-                        Colors.white, todayDangHwa()),
-                    SizedBox(height: size.maxHeight * 0.02),
-                    InkWell(
-                      onTap: () => Get.to(() => TodayBloodPressure()),
-                      child: mainContainer(
-                          size.maxWidth * 0.9,
-                          size.maxHeight * 0.2,
-                          Colors.white,
-                          todayBloodPressure()),
-                    ),
-                    SizedBox(height: size.maxHeight * 0.02),
-                    InkWell(
-                      onTap: () => Get.to(() => TodayFood()),
-                      child: mainContainer(size.maxWidth * 0.9, size.maxHeight * 0.17,
-                          Colors.white, todayFood()),
-                    ),
-                    SizedBox(height: size.maxHeight * 0.02),
-                    InkWell(
-                      onTap: () => Get.to(() => TodayHealth()),
-                      child: mainContainer(size.maxWidth * 0.9, size.maxHeight * 0.2,
-                          Colors.white, todayHealth()),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: HexColor('#FFA400'),
-          child: Icon(
-            Icons.home,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            CustomNaviBarController.to.fabAnimationController.reset();
-            CustomNaviBarController.to.borderRadiusAnimationController.reset();
-            CustomNaviBarController.to.borderRadiusAnimationController
-                .forward();
-            CustomNaviBarController.to.fabAnimationController.forward();
-          },
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: Obx(() => customAnimatedBar()));
-  }
-}*/
