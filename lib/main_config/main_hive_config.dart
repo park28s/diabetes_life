@@ -25,6 +25,7 @@ class HiveConfig {
   }
 
   Future boxSetting() async {
+    check = await Hive.box<CheckModel>('check');
     mainBox = await Hive.box<Map<dynamic, dynamic>>('mainBox');
     bloodBox = await Hive.box<Map<dynamic, dynamic>>('bloodBox');
     foodBox = await Hive.box<Map<dynamic, dynamic>>('foodBox');

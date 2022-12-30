@@ -223,7 +223,6 @@ Widget diabetesStatistics() {
       Widget _resultInfo(
           String item, int result, dynamic resultMsg, Color color) {
         return Row(
-          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(width: 5),
             TextConfig().TextConfig1(item, 20, FontWeight.w500, Colors.black),
@@ -240,23 +239,35 @@ Widget diabetesStatistics() {
         );
       }
 
-      return coverContainer(
-        size.maxWidth - 20,
-        Colors.white,
-        Colors.white,
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SizedBox(height: 5),
-            _resultInfo('공복', 110, '성공 했어요', Colors.black),
-            SizedBox(height: 10),
-            _resultInfo('식전', 120, '실패 에요!', Colors.red),
-            SizedBox(height: 10),
-            _resultInfo('식후', 180, '주의, 노력 하세요!', Colors.black),
-            SizedBox(height: 5),
-          ],
-        ),
-      );
+      return Obx(() => coverContainer(
+            size.maxWidth - 20,
+            Colors.white,
+            Colors.white,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(height: 5),
+                _resultInfo(
+                    '공복',
+                    StatisticsController.to.diabetesEmpty.value.toInt(),
+                    StatisticsController.to.diabetesEmptyResultString.value,
+                    StatisticsController.to.diabetesEmptyResultString.value == '실패 에요!' ? Colors.red : Colors.black),
+                SizedBox(height: 10),
+                _resultInfo(
+                    '식전',
+                    StatisticsController.to.diabetesBefore.value.toInt(),
+                    StatisticsController.to.diabetesBeforeResultString.value,
+                    StatisticsController.to.diabetesBeforeResultString.value == '실패 에요!' ? Colors.red : Colors.black),
+                SizedBox(height: 10),
+                _resultInfo(
+                    '식후',
+                    StatisticsController.to.diabetesAfter.value.toInt(),
+                    StatisticsController.to.diabetesAfterResultString.value,
+                    StatisticsController.to.diabetesAfterResultString.value == '실패 에요!' ? Colors.red : Colors.black),
+                SizedBox(height: 5),
+              ],
+            ),
+          ));
     }
 
     return coverContainer(
@@ -278,8 +289,15 @@ Widget diabetesStatistics() {
               TextConfig()
                   .TextConfig1('전체 평균 혈당', 20, FontWeight.w500, Colors.white),
               SizedBox(width: 10),
-              TextConfig()
-                  .TextConfig1('130', 30, FontWeight.w700, Colors.orange),
+              Obx(
+                () => TextConfig().TextConfig1(
+                    StatisticsController.to.totalDiabetesAverage.value
+                        .toInt()
+                        .toString(),
+                    30,
+                    FontWeight.w700,
+                    Colors.orange),
+              )
             ],
           )
         ],
@@ -298,34 +316,43 @@ Widget bloodPressureStatistics() {
           children: [
             TextConfig().TextConfig1('수축기', 20, FontWeight.w500, Colors.black),
             SizedBox(width: 5),
-            TextConfig()
-                .TextConfig1('120', 30, FontWeight.w500, Colors.deepOrange),
+            TextConfig().TextConfig1(
+                '${StatisticsController.to.bloodSys.value.toInt()}',
+                30,
+                FontWeight.w500,
+                Colors.deepOrange),
             SizedBox(width: 15),
             Text('|',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
             SizedBox(width: 15),
             TextConfig().TextConfig1('이완기', 20, FontWeight.w500, Colors.black),
             SizedBox(width: 5),
-            TextConfig()
-                .TextConfig1('80', 30, FontWeight.w500, Colors.deepOrange),
+            TextConfig().TextConfig1(
+                '${StatisticsController.to.bloodDia.value.toInt()}',
+                30,
+                FontWeight.w500,
+                Colors.deepOrange),
           ],
         );
       }
 
-      return coverContainer(
-        size.maxWidth - 20,
-        Colors.white,
-        Colors.white,
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SizedBox(height: 5),
-            _resultInfo(),
-            SizedBox(height: 20),
-            TextConfig()
-                .TextConfig1('성공 했어요', 25, FontWeight.w500, Colors.black),
-            SizedBox(height: 5),
-          ],
+      return Obx(
+        () => coverContainer(
+          size.maxWidth - 20,
+          Colors.white,
+          Colors.white,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SizedBox(height: 5),
+              _resultInfo(),
+              SizedBox(height: 20),
+              TextConfig()
+                  .TextConfig1(StatisticsController.to.bloodSysResultString.value, 25, FontWeight.w500,
+                  StatisticsController.to.bloodSysResultString.value == '실패 에요!' ? Colors.red : Colors.black),
+              SizedBox(height: 5),
+            ],
+          ),
         ),
       );
     }
@@ -364,70 +391,76 @@ Widget foodStatistics() {
   return LayoutBuilder(builder: (BuildContext context, size) {
     Widget _boxContainer() {
       Widget _resultInfo() {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        return Column(
           children: [
-            Column(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextConfig()
-                    .TextConfig1('안좋은음식', 15, FontWeight.w500, Colors.black),
-                SizedBox(width: 5),
-                TextConfig()
-                    .TextConfig1('12', 30, FontWeight.w500, Colors.deepOrange),
-                SizedBox(width: 30),
-                TextConfig()
-                    .TextConfig1('성공', 20, FontWeight.w500, Colors.black),
-                SizedBox(height: 5),
+                Column(
+                  children: [
+                    TextConfig()
+                        .TextConfig1('안좋은음식', 15, FontWeight.w500, Colors.black),
+                    SizedBox(width: 5),
+                    TextConfig().TextConfig1(
+                        '${StatisticsController.to.badFoodResult.toInt()}',
+                        30,
+                        FontWeight.w500,
+                        Colors.deepOrange),
+                  ],
+                ),
+                SizedBox(width: 15),
+                Text('|',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+                SizedBox(width: 15),
+                Column(
+                  children: [
+                    TextConfig()
+                        .TextConfig1('좋은 음식', 15, FontWeight.w500, Colors.black),
+                    SizedBox(width: 5),
+                    TextConfig().TextConfig1(
+                        '${StatisticsController.to.goodFoodResult.toInt()}',
+                        30,
+                        FontWeight.w500,
+                        Colors.deepOrange),
+                  ],
+                ),
+                SizedBox(width: 15),
+                Text('|',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+                SizedBox(width: 15),
+                Column(
+                  children: [
+                    TextConfig()
+                        .TextConfig1('애매한음식', 15, FontWeight.w500, Colors.black),
+                    SizedBox(width: 5),
+                    TextConfig().TextConfig1(
+                        '${StatisticsController.to.sosoFoodResult.toInt()}',
+                        30,
+                        FontWeight.w500,
+                        Colors.deepOrange),
+                  ],
+                ),
               ],
             ),
-            SizedBox(width: 15),
-            Text('|',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
-            SizedBox(width: 15),
-            Column(
-              children: [
-                TextConfig()
-                    .TextConfig1('좋은 음식', 15, FontWeight.w500, Colors.black),
-                SizedBox(width: 5),
-                TextConfig()
-                    .TextConfig1('50', 30, FontWeight.w500, Colors.deepOrange),
-                SizedBox(width: 30),
-                TextConfig()
-                    .TextConfig1('실패', 20, FontWeight.w500, Colors.black),
-                SizedBox(height: 5),
-              ],
-            ),
-            SizedBox(width: 15),
-            Text('|',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
-            SizedBox(width: 15),
-            Column(
-              children: [
-                TextConfig()
-                    .TextConfig1('애매한음식', 15, FontWeight.w500, Colors.black),
-                SizedBox(width: 5),
-                TextConfig()
-                    .TextConfig1('2', 30, FontWeight.w500, Colors.deepOrange),
-                SizedBox(width: 30),
-                TextConfig()
-                    .TextConfig1('성공', 20, FontWeight.w500, Colors.black),
-                SizedBox(height: 5),
-              ],
-            ),
+            TextConfig().TextConfig1(StatisticsController.to.badFoodResultString.value, 20, FontWeight.w500,
+                StatisticsController.to.badFoodResultString.value == '실패 에요!' ? Colors.red : Colors.black
+            )
           ],
         );
       }
 
-      return coverContainer(
-        size.maxWidth - 20,
-        Colors.white,
-        Colors.white,
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SizedBox(height: 5),
-            _resultInfo(),
-          ],
+      return Obx(
+        () => coverContainer(
+          size.maxWidth - 20,
+          Colors.white,
+          Colors.white,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SizedBox(height: 5),
+              _resultInfo(),
+            ],
+          ),
         ),
       );
     }
@@ -440,7 +473,7 @@ Widget foodStatistics() {
         children: [
           SizedBox(height: 5),
           TextConfig()
-              .TextConfig1('평균 음식 섭취', 20, FontWeight.w600, Colors.white),
+              .TextConfig1('음식 섭취 합계', 20, FontWeight.w600, Colors.white),
           SizedBox(height: 5),
           foodDaySetting(),
           SizedBox(height: 5),
@@ -464,7 +497,7 @@ Widget healthStatistics() {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextConfig()
-                    .TextConfig1('이번달', 20, FontWeight.w500, Colors.black),
+                    .TextConfig1('${StatisticsController.to.monthName.value}', 20, FontWeight.w500, Colors.black),
                 SizedBox(width: 10),
                 TextConfig().TextConfig1(
                     '평균 운동 횟수는', 20, FontWeight.w500, Colors.black),
@@ -474,8 +507,8 @@ Widget healthStatistics() {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextConfig()
-                    .TextConfig1('15', 25, FontWeight.w500, Colors.deepOrange),
+                TextConfig().TextConfig1('${StatisticsController.to.healthSum}',
+                    25, FontWeight.w500, Colors.deepOrange),
                 SizedBox(width: 10),
                 TextConfig()
                     .TextConfig1('회 입니다', 20, FontWeight.w500, Colors.black),
@@ -485,18 +518,20 @@ Widget healthStatistics() {
         );
       }
 
-      return coverContainer(
-        size.maxWidth - 20,
-        Colors.white,
-        Colors.white,
-        Column(
-          children: [
-            SizedBox(height: 5),
-            _resultInfo(),
-            SizedBox(height: 20),
-            TextConfig()
-                .TextConfig1('성공 했어요', 25, FontWeight.w500, Colors.black),
-          ],
+      return Obx(
+        () => coverContainer(
+          size.maxWidth - 20,
+          Colors.white,
+          Colors.white,
+          Column(
+            children: [
+              SizedBox(height: 5),
+              _resultInfo(),
+              SizedBox(height: 20),
+              TextConfig()
+                  .TextConfig1(StatisticsController.to.healthResultString.value, 25, FontWeight.w500, Colors.black),
+            ],
+          ),
         ),
       );
     }
@@ -511,7 +546,7 @@ Widget healthStatistics() {
           TextConfig()
               .TextConfig1('평균 운동 횟수', 20, FontWeight.w600, Colors.white),
           SizedBox(height: 5),
-          foodDaySetting(),
+          healthDaySetting(),
           SizedBox(height: 5),
           _boxContainer(),
           SizedBox(height: 10),
