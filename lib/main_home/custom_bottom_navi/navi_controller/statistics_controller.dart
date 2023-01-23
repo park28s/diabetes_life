@@ -61,9 +61,6 @@ class StatisticsController extends GetxController {
 
   RxString healthResultString = '-'.obs;
 
-
-
-
   void stateDiabetesMonth() {
     isStateDiabetesMonth.value = true;
     isStateDiabetesMonthAgo.value = false;
@@ -73,7 +70,6 @@ class StatisticsController extends GetxController {
         '${isStateDiabetesMonth.value} / ${isStateDiabetesMonthAgo.value} / ${isStateDiabetes3Month.value}');
     diabetesAverage();
     diabetesResultString();
-
   }
 
   void stateDiabetesMonthAge() {
@@ -105,38 +101,48 @@ class StatisticsController extends GetxController {
     diabetesBeforeResultString.value = '-';
     diabetesAfterResultString.value = '-';
 
-    if(check?.get(diabetesDateInfo)?.diabetesEmptyStomach != null) {
-      final _result = check?.get(diabetesDateInfo)?.diabetesEmptyStomach;
-      print('목표 공복 혈당 ${_result}');
-      print('비교 공복 혈당 ${diabetesEmpty.value.toInt()}');
-      if(_result! >= diabetesEmpty.value.toInt()) {
-        diabetesEmpty.value.toInt() <= 0 ? diabetesEmptyResultString.value = '-' : diabetesEmptyResultString.value = '성공 했어요';
-        print(diabetesEmptyResultString.value);
-      } else {
-        diabetesEmptyResultString.value = '실패 에요!';
-        print(diabetesEmptyResultString.value);
+    if (diabetesDateInfo != null) {
+      if (check?.get(diabetesDateInfo)?.diabetesEmptyStomach != null) {
+        final _result = check?.get(diabetesDateInfo)?.diabetesEmptyStomach;
+        print('목표 공복 혈당 ${_result}');
+        print('비교 공복 혈당 ${diabetesEmpty.value.toInt()}');
+        if (_result! >= diabetesEmpty.value.toInt()) {
+          diabetesEmpty.value.toInt() <= 0
+              ? diabetesEmptyResultString.value = '-'
+              : diabetesEmptyResultString.value = '성공 했어요';
+          print(diabetesEmptyResultString.value);
+        } else {
+          diabetesEmptyResultString.value = '실패 에요!';
+          print(diabetesEmptyResultString.value);
+        }
       }
-    } if(check?.get(diabetesDateInfo)?.diabetesBeforeMeal != null) {
-      final _result = check?.get(diabetesDateInfo)?.diabetesBeforeMeal;
-      print('목표 식전 혈당 ${_result}');
-      print('비교 식전 혈당 ${diabetesBefore.value.toInt()}');
-      if(_result! >= diabetesBefore.value.toInt()) {
-        diabetesBefore.value.toInt() <= 0 ? diabetesBeforeResultString.value = '-' : diabetesBeforeResultString.value = '성공 했어요';
-        print(diabetesBeforeResultString.value);
-      } else {
-        diabetesBeforeResultString.value = '실패 에요!';
-        print(diabetesBeforeResultString.value);
+      if (check?.get(diabetesDateInfo)?.diabetesBeforeMeal != null) {
+        final _result = check?.get(diabetesDateInfo)?.diabetesBeforeMeal;
+        print('목표 식전 혈당 ${_result}');
+        print('비교 식전 혈당 ${diabetesBefore.value.toInt()}');
+        if (_result! >= diabetesBefore.value.toInt()) {
+          diabetesBefore.value.toInt() <= 0
+              ? diabetesBeforeResultString.value = '-'
+              : diabetesBeforeResultString.value = '성공 했어요';
+          print(diabetesBeforeResultString.value);
+        } else {
+          diabetesBeforeResultString.value = '실패 에요!';
+          print(diabetesBeforeResultString.value);
+        }
       }
-    } if(check?.get(diabetesDateInfo)?.diabetesAfterMeal != null) {
-      final _result = check?.get(diabetesDateInfo)?.diabetesAfterMeal;
-      print('목표 식후 혈당 ${_result}');
-      print('비교 식후 혈당 ${diabetesAfter.value.toInt()}');
-      if(_result! >= diabetesAfter.value.toInt()) {
-        diabetesAfter.value.toInt() <= 0 ? diabetesAfterResultString.value = '-' : diabetesAfterResultString.value = '성공 했어요';
-        print(diabetesAfterResultString.value);
-      } else {
-        diabetesAfterResultString.value = '실패 에요!';
-        print(diabetesAfterResultString.value);
+      if (check?.get(diabetesDateInfo)?.diabetesAfterMeal != null) {
+        final _result = check?.get(diabetesDateInfo)?.diabetesAfterMeal;
+        print('목표 식후 혈당 ${_result}');
+        print('비교 식후 혈당 ${diabetesAfter.value.toInt()}');
+        if (_result! >= diabetesAfter.value.toInt()) {
+          diabetesAfter.value.toInt() <= 0
+              ? diabetesAfterResultString.value = '-'
+              : diabetesAfterResultString.value = '성공 했어요';
+          print(diabetesAfterResultString.value);
+        } else {
+          diabetesAfterResultString.value = '실패 에요!';
+          print(diabetesAfterResultString.value);
+        }
       }
     }
   }
@@ -176,18 +182,20 @@ class StatisticsController extends GetxController {
 
   void bloodPressureResultString() {
     bloodSysResultString.value = '-';
-    print(check?.get(bloodDateInfo)?.bloodPressure1);
-
-    if(check?.get(bloodDateInfo)?.bloodPressure1 != null) {
-      final _result = check?.get(bloodDateInfo)?.bloodPressure1;
-      print('목표 수축기 혈압 ${_result}');
-      print('비교 수축기 혈압 ${bloodSys.value.toInt()}');
-      if(_result! >= bloodSys.value.toInt()) {
-        bloodSys.value.toInt() <= 0 ? bloodSysResultString.value = '-' : bloodSysResultString.value = '성공 했어요';
-        print(bloodSysResultString.value);
-      } else {
-        bloodSysResultString.value = '실패 에요!';
-        print(bloodSysResultString.value);
+    if (bloodDateInfo != null) {
+      if (check?.get(bloodDateInfo)?.bloodPressure1 != null) {
+        final _result = check?.get(bloodDateInfo)?.bloodPressure1;
+        print('목표 수축기 혈압 ${_result}');
+        print('비교 수축기 혈압 ${bloodSys.value.toInt()}');
+        if (_result! >= bloodSys.value.toInt()) {
+          bloodSys.value.toInt() <= 0
+              ? bloodSysResultString.value = '-'
+              : bloodSysResultString.value = '성공 했어요';
+          print(bloodSysResultString.value);
+        } else {
+          bloodSysResultString.value = '실패 에요!';
+          print(bloodSysResultString.value);
+        }
       }
     }
   }
@@ -227,17 +235,20 @@ class StatisticsController extends GetxController {
 
   void foodResultString() {
     badFoodResultString.value = '-';
-
-    if(check?.get(foodDateInfo)?.badFood != null) {
-      final _result = check?.get(foodDateInfo)?.badFood;
-      print('목표 않좋은 음식 ${_result}');
-      print('비교 않좋은 음식 ${badFoodResult.value.toInt()}');
-      if(_result! >= badFoodResult.value.toInt()) {
-        badFoodResult.value.toInt() <= 0 ? badFoodResultString.value = '-' : badFoodResultString.value = '성공 했어요';
-        print(badFoodResultString.value);
-      } else {
-        badFoodResultString.value = '실패 에요!';
-        print(badFoodResultString.value);
+    if (foodDateInfo != null) {
+      if (check?.get(foodDateInfo)?.badFood != null) {
+        final _result = check?.get(foodDateInfo)?.badFood;
+        print('목표 않좋은 음식 ${_result}');
+        print('비교 않좋은 음식 ${badFoodResult.value.toInt()}');
+        if (_result! >= badFoodResult.value.toInt()) {
+          badFoodResult.value.toInt() <= 0
+              ? badFoodResultString.value = '-'
+              : badFoodResultString.value = '성공 했어요';
+          print(badFoodResultString.value);
+        } else {
+          badFoodResultString.value = '실패 에요!';
+          print(badFoodResultString.value);
+        }
       }
     }
   }
@@ -280,17 +291,20 @@ class StatisticsController extends GetxController {
 
   void healthCheckResultString() {
     healthResultString.value = '-';
-
-    if(check?.get(healthDateInfo)?.health != null) {
-      final _result = check?.get(healthDateInfo)?.health;
-      print('목표 운동 횟수 ${_result}');
-      print('비교 운동 횟수 ${healthSum.value.toInt()}');
-      if(_result! >= healthSum.value.toInt()) {
-        healthSum.value.toInt() <= 0 ? healthResultString.value = '-' : healthResultString.value = '성공 했어요';
-        print(healthResultString.value);
-      } else {
-        healthResultString.value = '실패 에요!';
-        print(healthResultString.value);
+    if (healthDateInfo != null) {
+      if (check?.get(healthDateInfo)?.health != null) {
+        final _result = check?.get(healthDateInfo)?.health;
+        print('목표 운동 횟수 ${_result}');
+        print('비교 운동 횟수 ${healthSum.value.toInt()}');
+        if (_result! >= healthSum.value.toInt()) {
+          healthSum.value.toInt() <= 0
+              ? healthResultString.value = '-'
+              : healthResultString.value = '성공 했어요';
+          print(healthResultString.value);
+        } else {
+          healthResultString.value = '실패 에요!';
+          print(healthResultString.value);
+        }
       }
     }
   }
@@ -303,7 +317,6 @@ class StatisticsController extends GetxController {
     List<int> _diabetesBeforeList = [];
     List<int> _diabetesAfterList = [];
     int _resultCount = 0;
-
 
     List.generate(
       mainBox?.toMap().length == null ? 0 : mainBox!.toMap().length,
@@ -318,7 +331,7 @@ class StatisticsController extends GetxController {
 
         void dateInfoAdd() {
           _dateTrueList.add(_trueInfo);
-         // _dateInfo = '${year}-${month}';
+          // _dateInfo = '${year}-${month}';
           diabetesDateInfo = '${year}-${month}';
           print('dateInfo = ${diabetesDateInfo}');
         }
@@ -381,7 +394,6 @@ class StatisticsController extends GetxController {
         diabetesAfter.value / _resultCount;
     print(
         '전체 평균 혈당 ${diabetesEmpty.value + diabetesBefore.value + diabetesAfter.value / _resultCount}');
-
   }
 
   void bloodPressureAverage() {
@@ -520,8 +532,10 @@ class StatisticsController extends GetxController {
     print(healthEventBox?.toMap());
 
     List.generate(
-      healthEventBox?.toMap().length == null ? 0 : healthEventBox!.toMap().length,
-          (index) {
+      healthEventBox?.toMap().length == null
+          ? 0
+          : healthEventBox!.toMap().length,
+      (index) {
         int year = int.parse(
             '${healthEventBox?.toMap().keys.elementAt(index).toString().replaceRange(4, null, '')}');
         int month = int.parse(
@@ -547,19 +561,17 @@ class StatisticsController extends GetxController {
               : null;
         } else if (isStateHealth3Month.value == true) {
           DateTime.now()
-              .add(Duration(days: -90))
-              .isBefore(DateTime(year, month, day)) ==
-              true
+                      .add(Duration(days: -90))
+                      .isBefore(DateTime(year, month, day)) ==
+                  true
               ? dateInfoAdd()
               : null;
         }
-
       },
     );
 
     for (int a = 0; a < _dateTrueList.length; a++) {
       _healthList.add(_dateTrueList[a]['운동'].length);
-
     }
     print('운동 집계 ${_healthList}');
     healthSum.value = _healthList.isNotEmpty

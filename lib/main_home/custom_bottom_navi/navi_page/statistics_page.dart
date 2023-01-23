@@ -11,6 +11,7 @@ class StatisticsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(StatisticsController());
+
     StatisticsController.to.diabetesAverage();
     StatisticsController.to.diabetesResultString();
     StatisticsController.to.bloodPressureAverage();
@@ -19,7 +20,9 @@ class StatisticsPage extends StatelessWidget {
     StatisticsController.to.foodResultString();
     StatisticsController.to.healthSumAverage();
     StatisticsController.to.healthCheckResultString();
-    print(check?.toMap().map((key, value) => MapEntry(key, value.bloodPressure1)));
+    print(check
+        ?.toMap()
+        .map((key, value) => MapEntry(key, value.bloodPressure1)));
 
     return SingleChildScrollView(
       child: Center(

@@ -292,8 +292,7 @@ Widget diabetesStatistics() {
               Obx(
                 () => TextConfig().TextConfig1(
                     StatisticsController.to.totalDiabetesAverage.value
-                        .toInt()
-                        .toString(),
+                        .isNaN ? '-'.toString() : StatisticsController.to.totalDiabetesAverage.value.toInt().toString(),
                     30,
                     FontWeight.w700,
                     Colors.orange),
