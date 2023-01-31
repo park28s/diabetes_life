@@ -12,6 +12,11 @@ Box<Map<dynamic, dynamic>>? foodBox;
 Box<Map<dynamic, dynamic>>? healthEventBox;
 Box<dynamic>? healthListBox;
 Box<String>? myPromiseBox;
+Box<bool>? isSettingCheck1;
+Box<bool>? isSettingCheck2;
+Box<int>? Checked1HourBox;
+Box<int>? Checked1MinBox;
+Box<int>? Checked2HourBox;
 
 class HiveConfig {
   Future openBox() async {
@@ -19,9 +24,15 @@ class HiveConfig {
     mainBox = await Hive.openBox<Map<dynamic, dynamic>>('mainBox');
     bloodBox = await Hive.openBox<Map<dynamic, dynamic>>('bloodBox');
     foodBox = await Hive.openBox<Map<dynamic, dynamic>>('foodBox');
-    healthEventBox = await Hive.openBox<Map<dynamic, dynamic>>('healthEventBox');
+    healthEventBox =
+        await Hive.openBox<Map<dynamic, dynamic>>('healthEventBox');
     healthListBox = await Hive.openBox<dynamic>('healthListBox');
     myPromiseBox = await Hive.openBox<String>('myPromiseBox');
+    isSettingCheck1 = await Hive.openBox<bool>('isSettingCheck1');
+    isSettingCheck2 = await Hive.openBox<bool>('isSettingCheck2');
+    Checked1HourBox = await Hive.openBox<int>('Checked1HourBox');
+    Checked1MinBox = await Hive.openBox<int>('Checked1MinBox');
+    Checked2HourBox = await Hive.openBox<int>('Checked2HourBox');
   }
 
   Future boxSetting() async {
@@ -32,6 +43,11 @@ class HiveConfig {
     healthEventBox = await Hive.box<Map<dynamic, dynamic>>('healthEventBox');
     healthListBox = await Hive.box<dynamic>('healthListBox');
     myPromiseBox = await Hive.box<String>('myPromiseBox');
+    isSettingCheck1 = await Hive.box<bool>('isSettingCheck1');
+    isSettingCheck2 = await Hive.box<bool>('isSettingCheck2');
+    Checked1HourBox = await Hive.box<int>('Checked1HourBox');
+    Checked1MinBox = await Hive.box<int>('Checked1MinBox');
+    Checked2HourBox = await Hive.box<int>('Checked2HourBox');
   }
 
   Future eventSetting() async {

@@ -1,16 +1,14 @@
 import 'package:diabetes_life/firebase_options.dart';
 import 'package:diabetes_life/main_config/main_hive_config.dart';
 import 'package:diabetes_life/main_config/main_size.dart';
+import 'package:diabetes_life/main_config/main_widget.dart';
 import 'package:diabetes_life/main_home/main_home.dart';
-import 'package:diabetes_life/pages/controller/today_bloodpressure_controller.dart';
-import 'package:diabetes_life/pages/controller/today_diabetes_controller.dart';
-import 'package:diabetes_life/pages/controller/today_food_controller.dart';
 import 'package:diabetes_life/pages/model/check_model.dart';
 import 'package:diabetes_life/pages/model/today_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
-import 'dart:ui';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -32,12 +30,7 @@ class DiabetesLife extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    todayDiabetesMain();
-    todayBloodMain();
-    todayFoodMain();
-    print(
-        '기기 실 사이즈 = Width : ${window.physicalSize.width} / Height : ${window.physicalSize.height}');
-    print('기기 논리 사이즈 = Width : ${mainWidthSize} / Height : ${mainHeightSize}');
+    mainStart();
     return GetMaterialApp(
       builder: (context, child) {
         return MediaQuery(

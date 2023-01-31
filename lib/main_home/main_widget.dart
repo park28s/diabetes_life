@@ -3,6 +3,7 @@ import 'package:diabetes_life/main_config/main_colors.dart';
 import 'package:diabetes_life/main_config/text_config.dart';
 import 'package:diabetes_life/main_home/custom_bottom_navi/navi_page/diabetes_management_page.dart';
 import 'package:diabetes_life/main_home/custom_bottom_navi/navi_page/myinfo_page.dart';
+import 'package:diabetes_life/main_home/custom_bottom_navi/navi_page/setup_page.dart';
 import 'package:diabetes_life/main_home/custom_bottom_navi/navi_page/statistics_page.dart';
 import 'package:diabetes_life/main_home/main_controller.dart';
 import 'package:diabetes_life/main_home/main_home.dart';
@@ -81,7 +82,7 @@ Widget naviBarSet() {
   } else if (CustomNaviBarController.to.bottomNavIndex.value == 2) {
     return StatisticsPage();
   } else if (CustomNaviBarController.to.bottomNavIndex.value == 3) {
-    return test3();
+    return SetupPage();
   }
   return Center(child: Text('PageErr', style: TextStyle(fontSize: 50)));
 }

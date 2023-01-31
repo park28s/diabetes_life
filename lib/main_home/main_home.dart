@@ -110,15 +110,3 @@ class MainHomeViewModel extends StatelessWidget {
     );
   }
 }
-
-//////////////////// Test Page  ///////////////////////////////
-
-class test3 extends StatelessWidget {
-  const test3({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text('testPage3', style: TextStyle(fontSize: 50)));
-  }
-}
-///////////////////////////////////////////////////////////
