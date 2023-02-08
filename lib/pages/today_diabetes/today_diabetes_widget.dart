@@ -10,6 +10,8 @@ import 'package:diabetes_life/pages/model/today_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 // 테이블 캘린더 위젯
 Widget tableCalendar() {
@@ -172,7 +174,8 @@ void showTimePickerPop(context) {
                           await mainBox?.put(saveDateTime.toString(), {
                             '날짜': saveDateTime,
                             '식전': int.parse(diabetesCreateController.text)
-                          }).whenComplete(() {
+                          }).then((value) => todayDiabetesTimePut(saveDateTime))
+                              .whenComplete(() {
                             todayDiabetesWhenComplete();
                           }).whenComplete(() => kEvents.addAll(eventSource));
                         if (TodayDiabetesController.to.selectedItem.value ==

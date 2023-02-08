@@ -27,6 +27,7 @@ Widget hiddenTimePut1() {
                 SetupPageController.to.selectIndex1.value = value!.toInt();
                 Checked1HourBox?.put('hour', value);
                 print(Checked1HourBox?.values.first);
+                LocalNotification().showNotification2();
               }),
           SizedBox(width: 10),
           TextConfig().TextConfig1('시 :', 20, FontWeight.w500, Colors.black),
@@ -50,6 +51,7 @@ Widget hiddenTimePut1() {
                     SetupPageController.to.selectIndex2.value = value!.toInt();
                     Checked1MinBox?.put('min', value);
                     print(Checked1MinBox?.values.first);
+                    LocalNotification().showNotification2();
                   }),
               SizedBox(height: 10),
               TextConfig().TextConfig1('분', 20, FontWeight.w500, Colors.black),
@@ -91,6 +93,7 @@ Widget hiddenTimePut2() {
                 SetupPageController.to.selectIndex3.value = value!.toInt();
                 Checked2HourBox?.put('hour', value);
                 print(Checked2HourBox?.values.first);
+                LocalNotification().showNotification2();
               }),
         ],
       ),

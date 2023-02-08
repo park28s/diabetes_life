@@ -7,6 +7,8 @@ import 'package:diabetes_life/pages/today_diabetes/today_diabetes_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 TextEditingController diabetesCreateController = TextEditingController();
 GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
@@ -123,6 +125,14 @@ void todayDiabetesWhenComplete() {
 
   print('등록 누르고 kEvents = ${kEvents}');
   print('등록누르고 mainBoxKey = ${mainBox?.keys}');
+}
+
+void todayDiabetesTimePut(saveDateTime) async {
+  await Checked2TimeBox?.put('time',
+      saveDateTime);
+  /*await Checked2TimeBox?.put('time',
+      tz.TZDateTime.now(tz.getLocation('Asia/Seoul')));*/
+  //print('todayDiabetesTime = ${Checked2TimeBox?.toMap()}');
 }
 
 void todayDiabetesMain() {

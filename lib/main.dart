@@ -28,6 +28,7 @@ void main() async {
 class DiabetesLife extends StatelessWidget {
   const DiabetesLife({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     mainStart();

@@ -75,6 +75,8 @@ void mainStart() {
   todayDiabetesMain();
   todayBloodMain();
   todayFoodMain();
+  LocalNotification.initialize();
+  LocalNotification.requestPermission();
   Get.put(SetupPageController());
   isSettingCheck1!.values.isEmpty
       ? null

@@ -3,7 +3,10 @@ import 'package:diabetes_life/pages/today_bloodpressure/today_bloodpressure_widg
 import 'package:diabetes_life/pages/today_diabetes/today_diabetes_widget.dart';
 import 'package:diabetes_life/pages/today_food/today_food_widget.dart';
 import 'package:diabetes_life/pages/today_health/today_health_widget.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 Box<CheckModel>? check;
 Box<Map<dynamic, dynamic>>? mainBox;
@@ -16,6 +19,7 @@ Box<bool>? isSettingCheck1;
 Box<bool>? isSettingCheck2;
 Box<int>? Checked1HourBox;
 Box<int>? Checked1MinBox;
+Box<dynamic>? Checked2TimeBox;
 Box<int>? Checked2HourBox;
 
 class HiveConfig {
@@ -32,6 +36,7 @@ class HiveConfig {
     isSettingCheck2 = await Hive.openBox<bool>('isSettingCheck2');
     Checked1HourBox = await Hive.openBox<int>('Checked1HourBox');
     Checked1MinBox = await Hive.openBox<int>('Checked1MinBox');
+    Checked2TimeBox = await Hive.openBox<dynamic>('Checked2TimeBox');
     Checked2HourBox = await Hive.openBox<int>('Checked2HourBox');
   }
 
@@ -47,6 +52,7 @@ class HiveConfig {
     isSettingCheck2 = await Hive.box<bool>('isSettingCheck2');
     Checked1HourBox = await Hive.box<int>('Checked1HourBox');
     Checked1MinBox = await Hive.box<int>('Checked1MinBox');
+    Checked2TimeBox = await Hive.box<dynamic>('Checked2TimeBox');
     Checked2HourBox = await Hive.box<int>('Checked2HourBox');
   }
 
