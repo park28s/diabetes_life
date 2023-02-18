@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:diabetes_life/main_config/main_hive_config.dart';
+import 'package:diabetes_life/main_config/main_size.dart';
 import 'package:diabetes_life/main_config/text_config.dart';
 import 'package:diabetes_life/main_home/custom_bottom_navi/navi_controller/setup_controller.dart';
 import 'package:flutter/material.dart';
@@ -70,6 +73,7 @@ Widget hiddenTimePut1() {
 Widget hiddenTimePut2() {
   return Column(
     children: [
+      Checked2TimeBox!.isNotEmpty ? saveTime() : Container(),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -100,6 +104,25 @@ Widget hiddenTimePut2() {
       SizedBox(height: 10),
       TextConfig()
           .TextConfig1('시간 후에 알려 드릴게요 :)', 20, FontWeight.w500, Colors.black),
+    ],
+  );
+}
+
+//title : 식전 체크 시간이 있으면 화면에 보여 주기
+Widget saveTime() {
+  var beforeSaveTime =
+      Checked2TimeBox?.toMap().values.first.toString().substring(2, 16);
+  log('${beforeSaveTime}');
+  return Column(
+    children: [
+      TextView().textView('저장 되어 있는 식전 시간', 15, FontWeight.w500, Colors.black),
+      SizedBox(height: 5),
+      TextView().textView(
+          '${beforeSaveTime.toString()}', 15, FontWeight.w500, Colors.red),
+      SizedBox(height: 5),
+      TextView().textView(
+          '(시간이 맞지 않으면 식전 체크를 다시 해 주세요)', 12, FontWeight.w500, Colors.black),
+      SizedBox(height: 10),
     ],
   );
 }

@@ -1,3 +1,4 @@
+import 'package:diabetes_life/main_config/google_admob/google_admob_config.dart';
 import 'package:diabetes_life/main_config/main_hive_config.dart';
 import 'package:diabetes_life/main_config/main_size.dart';
 import 'package:diabetes_life/main_config/text_config.dart';
@@ -9,13 +10,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 Widget userAvatar() {
   return Center(
     child: CircleAvatar(
-      radius: mainWidthSize * 0.12,
+      radius: mainWidthSize * 0.09,
       backgroundColor: Colors.grey,
       child: Text(
         'G',
         style: TextStyle(
             color: Colors.white,
-            fontSize: mainWidthSize * 0.12,
+            fontSize: mainWidthSize * 0.09,
             fontWeight: FontWeight.bold),
       ),
     ),
@@ -28,7 +29,7 @@ Widget userName() {
       'Guest',
       style: TextStyle(
           color: Colors.grey,
-          fontSize: mainWidthSize * 0.1,
+          fontSize: mainWidthSize * 0.06,
           fontWeight: FontWeight.bold),
     ),
   );
@@ -54,8 +55,11 @@ Widget notice() {
         children: [
           SizedBox(height: 10),
           noticeList('곧 2.0 버전이 출시 됩니다!', 20),
+          SizedBox(height: 3),
           noticeList('👉 로그인 기능', 15),
+          SizedBox(height: 3),
           noticeList('👉 광고 제거 기능', 15),
+          SizedBox(height: 3),
           noticeList('👉 백업 기능', 15),
           SizedBox(height: 10)
         ],
@@ -65,50 +69,59 @@ Widget notice() {
 }
 
 Widget myPromise() {
-  Widget myPromiseText(String text, double size, Color color) {
+  /* Widget _myPromiseText(String text, double size, Color color) {
     return Text(
       text,
       style:
-      TextStyle(color: color, fontSize: size, fontWeight: FontWeight.bold),
+          TextStyle(color: color, fontSize: size, fontWeight: FontWeight.bold),
     );
-  }
+  }*/
 
   return Center(
-    child: Container(
-      alignment: Alignment.center,
-      width: mainWidthSize - 20,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.grey.shade500)),
-      child: Column(
-        children: [
-          SizedBox(height: 10),
-          myPromiseText('내 몸은 내가 관리한다!, 나의 다짐은?', 20, Colors.black),
-          SizedBox(height: 20),
-          Container(
-            width: mainWidthSize - 50,
-            child: ValueListenableBuilder(
-              valueListenable: Hive.box<String>('myPromiseBox').listenable(),
-              builder: (context, Box<String> box, child) {
-                return box.values.isEmpty
-                    ? Center(
-                  child: Text('아직 등록이 안되어 있어요!',
-                      style: TextStyle(
-                          fontSize: 15,
-                          height: 1.5,
-                          color: Colors.redAccent)),
-                )
-                    : Text(
-                  '${box.values.first}',
-                  style: TextStyle(fontSize: 15, height: 1.5),
-                );
-              },
-            ),
-          )
-        ],
-      ),
+      child: Container(
+    alignment: Alignment.center,
+    width: mainWidthSize - 20,
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.grey.shade500)),
+    child: LayoutBuilder(
+      builder: (context, size) {
+        return Column(
+          children: [
+            SizedBox(height: 10),
+            TextView().textView1('내 몸은 내가 관리 한다!', size.maxWidth * 0.05,
+                FontWeight.bold, Colors.black),
+            SizedBox(height: 5),
+            TextView().textView1(
+                '나의 다짐은?', size.maxWidth * 0.05, FontWeight.bold, Colors.black),
+            SizedBox(height: 10),
+            Container(
+              width: mainWidthSize - 50,
+              child: ValueListenableBuilder(
+                valueListenable: Hive.box<String>('myPromiseBox').listenable(),
+                builder: (context, Box<String> box, child) {
+                  return box.values.isEmpty
+                      ? Center(
+                          child: TextView().textView1(
+                              '아직 등록이 안되어 있어요!',
+                              size.maxWidth * 0.05,
+                              FontWeight.normal,
+                              Colors.redAccent),
+                        )
+                      : Text(
+                          '${box.values.first}',
+                          style: TextStyle(
+                              fontSize: size.maxWidth * 0.05, height: 1.5),
+                          textAlign: TextAlign.center,
+                        );
+                },
+              ),
+            )
+          ],
+        );
+      },
     ),
-  );
+  ));
 }
 
 Widget registerButton(context) {
@@ -131,7 +144,7 @@ Widget registerButton(context) {
               labelStyle: TextStyle(fontSize: 20),
               contentPadding: EdgeInsets.all(25),
               border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             ),
             style: TextStyle(fontSize: 25),
           ),
@@ -148,7 +161,8 @@ Widget registerButton(context) {
                     ?.put('다짐', myPromiseTextController.text)
                     .whenComplete(
                         () => print('myPromiseBox = ${myPromiseBox?.values}'))
-                    .whenComplete(() => Get.back());
+                    .whenComplete(() => Get.back())
+                    .whenComplete(() => showInterstitialAd());
               },
             ),
           ],

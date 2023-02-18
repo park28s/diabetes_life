@@ -88,17 +88,16 @@ Widget naviBarSet() {
 }
 
 // 오늘의 음식 메인 컨테이너
-Widget foodContainer(double width, double height, dynamic color, String text) {
+Widget foodContainer(
+    double width, double height, dynamic color, String text, double fontSize) {
   return Container(
       alignment: Alignment.center,
       width: width,
       height: height,
       decoration:
           BoxDecoration(color: color, borderRadius: BorderRadius.circular(5)),
-      child: Text(
-        text,
-        style: TextStyle(color: Colors.white),
-      ));
+      child: TextView()
+          .textView1(text, width - 1, FontWeight.normal, Colors.white));
 }
 
 // 오늘의 운동 메인 컨테이너
@@ -110,8 +109,6 @@ Widget healthContainer(
       height: height,
       decoration:
           BoxDecoration(color: color, borderRadius: BorderRadius.circular(5)),
-      child: Text(
-        text,
-        style: TextStyle(color: Colors.white),
-      ));
+      child: TextView()
+          .textView1(text, width - 1, FontWeight.normal, Colors.white));
 }

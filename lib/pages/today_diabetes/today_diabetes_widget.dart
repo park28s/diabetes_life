@@ -136,6 +136,7 @@ void showTimePickerPop(context) {
               '${TimeOfDay.hour < 10 ? '0${TimeOfDay.hour}' : TimeOfDay.hour}:'
               '${TimeOfDay.minute < 10 ? '0${TimeOfDay.minute}' : TimeOfDay.minute}:'
               '${'00.000'}';
+
           return GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),
             child: AlertDialog(
@@ -171,13 +172,17 @@ void showTimePickerPop(context) {
                           }).whenComplete(() => kEvents.addAll(eventSource));
                         if (TodayDiabetesController.to.selectedItem.value ==
                             '식전')
-                          await mainBox?.put(saveDateTime.toString(), {
-                            '날짜': saveDateTime,
-                            '식전': int.parse(diabetesCreateController.text)
-                          }).then((value) => todayDiabetesTimePut(saveDateTime))
+                          await mainBox
+                              ?.put(saveDateTime.toString(), {
+                                '날짜': saveDateTime,
+                                '식전': int.parse(diabetesCreateController.text)
+                              })
+                              .then(
+                                  (value) => todayDiabetesTimePut(saveDateTime))
                               .whenComplete(() {
-                            todayDiabetesWhenComplete();
-                          }).whenComplete(() => kEvents.addAll(eventSource));
+                                todayDiabetesWhenComplete();
+                              })
+                              .whenComplete(() => kEvents.addAll(eventSource));
                         if (TodayDiabetesController.to.selectedItem.value ==
                             '식후')
                           await mainBox?.put(saveDateTime.toString(), {
@@ -284,91 +289,101 @@ Widget selectedList() {
       child: ValueListenableBuilder<List<Event>>(
           valueListenable: controller1.selectedEvents,
           builder: (BuildContext, value, child) {
-            return Container(
-              width: mainWidthSize - 15,
-              child: ListView.builder(
-                  itemCount: value.length, //box.keys.length,
-                  itemBuilder: (BuildContext, int index) {
-                    var result = value
-                        .asMap()[index]
-                        .toString()
-                        .replaceRange(0, 34, '')
-                        .replaceAll('}', '');
-                    var nameResult = value
-                        .asMap()[index]
-                        .toString()
-                        .replaceRange(0, 30, '')
-                        .replaceRange(2, null, '');
-                    var timeResult = value
-                        .asMap()[index]
-                        .toString()
-                        .replaceRange(0, 15, '')
-                        .replaceRange(6, null, '');
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 3, bottom: 3),
-                          child: coverContainer(
-                              mainWidthSize > 750 ? 650 : 280,
-                              Colors.blueAccent,
-                              Colors.white,
-                              Padding(
-                                padding: const EdgeInsets.all(7),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        TextConfig().TextConfig2(
-                                            '${result} mg/dL',
-                                            15,
-                                            FontWeight.w500,
-                                            Colors.black),
-                                        SizedBox(height: 8),
-                                        TextConfig().TextConfig2(
-                                            '측정 시간  ${timeResult}',
-                                            15,
-                                            FontWeight.w500,
-                                            Colors.black),
-                                      ],
-                                    ),
-                                    TextConfig().TextConfig2('|', 20,
-                                        FontWeight.w500, Colors.redAccent),
-                                    TextConfig().TextConfig2('${nameResult}',
-                                        20, FontWeight.w500, Colors.black),
-                                  ],
-                                ),
-                              )),
-                        ),
-                        MaterialButton(
-                            color: Colors.grey.shade600,
-                            minWidth: 60,
-                            height: 60,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            onPressed: () async {
-                              final kEventsKey = await value
-                                  .toList()[index]
-                                  .toString()
-                                  .substring(5, 28);
-                              print('삭제 누르고 kEventsKey ${kEventsKey}');
-                              await mainBox?.delete(kEventsKey);
-                              kEvents.clear();
-                              await eventPut().whenComplete(
-                                  () => kEvents.addAll(eventSource));
-                              print('삭제 누르고 kEvents ${kEvents}');
-                              print('삭제 누르고 mainBox ${mainBox?.toMap()}');
-                              controller1.selectedEventDel();
-                              todayDiabetesMainList[0].removeAt(index);
-                              todayDiabetesMain();
-                            },
-                            child: TextConfig().TextConfig2(
-                                '삭제', 15, FontWeight.w500, Colors.white))
-                      ],
-                    );
-                  }),
+            return LayoutBuilder(
+              builder: (context, boxSize) {
+                return Container(
+                  width: mainWidthSize - 15,
+                  child: ListView.builder(
+                      itemCount: value.length, //box.keys.length,
+                      itemBuilder: (BuildContext, int index) {
+                        var result = value
+                            .asMap()[index]
+                            .toString()
+                            .replaceRange(0, 34, '')
+                            .replaceAll('}', '');
+                        var nameResult = value
+                            .asMap()[index]
+                            .toString()
+                            .replaceRange(0, 30, '')
+                            .replaceRange(2, null, '');
+                        var timeResult = value
+                            .asMap()[index]
+                            .toString()
+                            .replaceRange(0, 15, '')
+                            .replaceRange(6, null, '');
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 3, bottom: 3),
+                              child: coverContainer(
+                                boxSize.maxWidth * 0.7,
+                                      Colors.blueAccent,
+                                      Colors.white,
+                                      Padding(
+                                        padding: const EdgeInsets.all(7),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                TextConfig().TextConfig2(
+                                                    '${result} mg/dL',
+                                                    15,
+                                                    FontWeight.w500,
+                                                    Colors.black),
+                                                SizedBox(height: 8),
+                                                TextConfig().TextConfig2(
+                                                    '측정 시간  ${timeResult}',
+                                                    15,
+                                                    FontWeight.w500,
+                                                    Colors.black),
+                                              ],
+                                            ),
+                                            TextConfig().TextConfig2('|', 20,
+                                                FontWeight.w500, Colors.redAccent),
+                                            TextConfig().TextConfig2(
+                                                '${nameResult}',
+                                                20,
+                                                FontWeight.w500,
+                                                Colors.black),
+                                          ],
+                                        ),
+                                      )),
+                            ),
+                            Flexible(
+                              fit: FlexFit.loose,
+                              child: MaterialButton(
+                                      color: Colors.grey.shade600,
+                                      height: 60,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10)),
+                                      onPressed: () async {
+                                        final kEventsKey = await value
+                                            .toList()[index]
+                                            .toString()
+                                            .substring(5, 28);
+                                        print('삭제 누르고 kEventsKey ${kEventsKey}');
+                                        await mainBox?.delete(kEventsKey);
+                                        kEvents.clear();
+                                        await eventPut().whenComplete(
+                                            () => kEvents.addAll(eventSource));
+                                        print('삭제 누르고 kEvents ${kEvents}');
+                                        print('삭제 누르고 mainBox ${mainBox?.toMap()}');
+                                        print('삭제 누르고 mainBox ${mainBox?.toMap()}');
+                                        controller1.selectedEventDel();
+                                        todayDiabetesMainList[0].removeAt(index);
+                                        todayDiabetesMain();
+                                      },
+                                      child: TextConfig().TextConfig2(
+                                          '삭제', 15, FontWeight.w500, Colors.white)),
+                            )
+                          ],
+                        );
+                      }),
+                );
+              }
             );
           }),
     );

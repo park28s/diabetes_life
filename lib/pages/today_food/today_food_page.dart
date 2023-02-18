@@ -1,3 +1,5 @@
+import 'package:diabetes_life/main_config/google_admob/google_admob_config.dart';
+import 'package:diabetes_life/main_config/google_admob/google_admob_widget.dart';
 import 'package:diabetes_life/main_config/main_appbar_default.dart';
 import 'package:diabetes_life/main_config/main_size.dart';
 import 'package:diabetes_life/main_config/main_widget.dart';
@@ -9,21 +11,26 @@ class TodayFood extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    createBannerAd();
     return Scaffold(
       appBar: AppBarDefault2(),
-      body: Container(
-        width: mainWidthSize,
-        height: mainHeightSize,
-        child: LayoutBuilder(
-            builder: (context, size) => Column(
-              children: [
-                pageName('음식 관리', Colors.green.shade800),
-                SizedBox(height: 10),
-                tableCalendar(),
-                SizedBox(height: 10),
-                selectedList3()
-              ],
-            )),
+      body: SingleChildScrollView(
+        child: Container(
+          width: mainWidthSize,
+          height: mainHeightSize,
+          child: LayoutBuilder(
+              builder: (context, size) => Column(
+                children: [
+                  pageName('음식 관리', Colors.green.shade800),
+                  SizedBox(height: 10),
+                  tableCalendar(),
+                  SizedBox(height: 10),
+                  googleAdBanner(),
+                  SizedBox(height: 10),
+                  selectedList3()
+                ],
+              )),
+        ),
       ),
     );
   }

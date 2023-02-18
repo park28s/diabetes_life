@@ -75,28 +75,32 @@ Widget healthListContainer() {
           );
         }
 
-        return Container(
-          width: mainWidthSize - 10,
-          height: mainHeightSize / 3.5,
-          child: GridView.builder(
-            itemCount: value.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 5,
-                childAspectRatio: 2,
-                mainAxisSpacing: 5,
-                crossAxisSpacing: 5),
-            itemBuilder: (BuildContext context, int index) {
-              _colorCheck();
-              print('colorList = ${colorList.length}');
-              return InkWell(
-                onTap: () {
-                  _popup(context, index);
+        return LayoutBuilder(
+          builder: (context, size) {
+            return Container(
+              width: mainWidthSize - 10,
+              height: mainHeightSize / 3.5,
+              child: GridView.builder(
+                itemCount: value.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 5,
+                    childAspectRatio: 2,
+                    mainAxisSpacing: 5,
+                    crossAxisSpacing: 5),
+                itemBuilder: (BuildContext context, int index) {
+                  _colorCheck();
+                  print('colorList = ${colorList.length}');
+                  return InkWell(
+                    onTap: () {
+                      _popup(context, index);
+                    },
+                    child: healthContainer(65, 20, Color(colorList[index].value),
+                        _name.elementAt(index)),
+                  );
                 },
-                child: healthContainer(65, 20, Color(colorList[index].value),
-                    _name.elementAt(index)),
-              );
-            },
-          ),
+              ),
+            );
+          }
         );
       });
 }

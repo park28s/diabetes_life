@@ -7,68 +7,107 @@ import 'package:get/get.dart';
 Widget todayDiabetes() {
   Get.put(TodayDiabetesController());
   TodayDiabetesController.to.mainTodayDiabetesGet();
-  //todayDiabetesMain();
+  todayDiabetesMain();
   return LayoutBuilder(
     builder: (BuildContext context, size) => Column(
       children: [
         SizedBox(height: size.maxHeight * 0.05),
-        AutoSizeTextConfig().TextConfig2(
-            '오늘의 혈당', 1, 30, 13, Colors.black, 10, FontWeight.w700),
-        SizedBox(height: size.maxHeight * 0.05),
-        AutoSizeTextConfig().TextConfig2(
-            '(마지막 측정 기준)', 1, 30, 13, Colors.black, 10, FontWeight.w700),
-        SizedBox(height: size.maxHeight * 0.05),
+        textView(
+            size.maxWidth - 10, '오늘의 혈당', 20.0, Colors.black, FontWeight.w700),
+        textView(size.maxWidth - 10, '(마지막 측정 기준)', 15.0, Colors.black,
+            FontWeight.w700),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Row(
-              children: [
-                AutoSizeTextConfig().TextConfig2(
-                    '공복', 1, 25, 10, Colors.black, 23, FontWeight.w200),
-                SizedBox(width: size.maxWidth * 0.02),
-                Obx(() => AutoSizeTextConfig().TextConfig2(
-                    '${Get.find<TodayDiabetesController>().emptyStomach?.value}',
-                    1,
-                    35,
-                    10,
-                    Colors.deepOrangeAccent,
-                    30,
-                    FontWeight.bold)),
-              ],
-            ),
-            Row(
-              children: [
-                AutoSizeTextConfig().TextConfig2(
-                    '식전', 1, 25, 10, Colors.black, 23, FontWeight.w200),
-                SizedBox(width: size.maxWidth * 0.02),
-                Obx(() => AutoSizeTextConfig().TextConfig2(
-                    '${Get.find<TodayDiabetesController>().beforeMeal.value}',
-                    1,
-                    35,
-                    10,
-                    Colors.deepOrangeAccent,
-                    30,
-                    FontWeight.bold)),
-              ],
-            ),
-            Row(
-              children: [
-                AutoSizeTextConfig().TextConfig2(
-                    '식후', 1, 25, 10, Colors.black, 23, FontWeight.w200),
-                SizedBox(width: size.maxWidth * 0.02),
-                Obx(() => AutoSizeTextConfig().TextConfig2(
-                    '${Get.find<TodayDiabetesController>().afterMeal.value}',
-                    1,
-                    35,
-                    10,
-                    Colors.deepOrangeAccent,
-                    30,
-                    FontWeight.bold)),
-              ],
-            ),
+            SizedBox(width: size.maxWidth * 0.05),
+            textView(
+                size.maxWidth - 10, '공복', 20.0, Colors.black, FontWeight.w700),
+            Obx(() => textView(
+                size.maxWidth - 10,
+                '${Get.find<TodayDiabetesController>().emptyStomach?.value}',
+                20.0,
+                Colors.deepOrangeAccent,
+                FontWeight.bold)),
+            SizedBox(width: size.maxWidth * 0.05),
+            textView(
+                size.maxWidth - 10, '식전', 20.0, Colors.black, FontWeight.w700),
+            Obx(() => textView(
+                size.maxWidth - 10,
+                '${Get.find<TodayDiabetesController>().beforeMeal.value}',
+                20.0,
+                Colors.deepOrangeAccent,
+                FontWeight.bold)),
+            SizedBox(width: size.maxWidth * 0.05),
+            textView(
+                size.maxWidth - 10, '식후', 20.0, Colors.black, FontWeight.w700),
+            Obx(() => textView(
+                size.maxWidth - 10,
+                '${Get.find<TodayDiabetesController>().afterMeal.value}',
+                20.0,
+                Colors.deepOrangeAccent,
+                FontWeight.bold)),
+            SizedBox(width: size.maxWidth * 0.05),
           ],
         ),
+        SizedBox(height: size.maxHeight * 0.1)
       ],
     ),
   );
 }
+
+//note : 이전 메인 소스 (혹시 이상 생기면 참조)
+/*SizedBox(height: size.maxHeight * 0.05),
+        TextView().textView(
+            '오늘의 혈당', size.maxWidth * 0.03, FontWeight.w700, Colors.black),
+        SizedBox(height: size.maxHeight * 0.05),
+        TextView().textView(
+            '(마지막 측정 기준)', size.maxWidth * 0.05, FontWeight.w700, Colors.black),
+        SizedBox(height: size.maxHeight * 0.05),
+        Container(
+          width: size.maxWidth - 1,
+          child: LayoutBuilder(
+            builder: (context, containerSize) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    children: [
+                      TextView().textView(
+                          '공복', containerSize.maxWidth * 0.08, FontWeight.w200, Colors.black),
+                      SizedBox(width: containerSize.maxWidth * 0.02),
+                      Obx(() => TextView().textView(
+                          '${Get.find<TodayDiabetesController>().emptyStomach?.value}',
+                          containerSize.maxWidth * 0.09,
+                          FontWeight.bold,
+                          Colors.deepOrangeAccent)),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      TextView().textView(
+                          '식전', containerSize.maxWidth * 0.08, FontWeight.w200, Colors.black),
+                      SizedBox(width: containerSize.maxWidth * 0.02),
+                      Obx(() => TextView().textView(
+                          '${Get.find<TodayDiabetesController>().beforeMeal.value}',
+                          containerSize.maxWidth * 0.09,
+                          FontWeight.bold,
+                          Colors.deepOrangeAccent)),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      TextView().textView(
+                          '식후', containerSize.maxWidth * 0.08, FontWeight.w200, Colors.black),
+                      SizedBox(width: containerSize.maxWidth * 0.02),
+                      Obx(() => TextView().textView(
+                          '${Get.find<TodayDiabetesController>().afterMeal.value}',
+                          containerSize.maxWidth * 0.09,
+                          FontWeight.bold,
+                          Colors.deepOrangeAccent)),
+                    ],
+                  ),
+                ],
+              );
+            }
+          ),
+        ),*/

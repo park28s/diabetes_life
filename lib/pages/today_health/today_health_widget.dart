@@ -417,112 +417,119 @@ Widget selectedList4() {
             print('healEventBox Map = ${healthEventBox?.values}');
             print('value Test = ${value}');
             print('------------------>');
-            return Container(
-              width: mainWidthSize - 15,
-              child: ListView.builder(
-                itemCount: value.length, //box.keys.length,
-                itemBuilder: (BuildContext, int index) {
-                  int aa = TodayHealthController.to.health[index].length;
-                  var _timeResult = value
-                      .asMap()[index]
-                      .toString()
-                      .replaceRange(0, 15, '')
-                      .replaceRange(6, null, '');
+            return LayoutBuilder(
+              builder: (context, boxSize) {
+                return Container(
+                  width: mainWidthSize - 15,
+                  child: ListView.builder(
+                    itemCount: value.length, //box.keys.length,
+                    itemBuilder: (BuildContext, int index) {
+                      int aa = TodayHealthController.to.health[index].length;
+                      var _timeResult = value
+                          .asMap()[index]
+                          .toString()
+                          .replaceRange(0, 15, '')
+                          .replaceRange(6, null, '');
 
-                  print('_timeResult ${_timeResult}');
-                  // print('이벤트박스벨류 ${healthEventBox?.values}');
+                      print('_timeResult ${_timeResult}');
+                      // print('이벤트박스벨류 ${healthEventBox?.values}');
 
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 3, bottom: 3),
-                        child: coverContainer(
-                          mainWidthSize > 750 ? 650 : 280,
-                          Colors.deepPurpleAccent,
-                          Colors.white,
-                          LayoutBuilder(
-                            builder: (context, size) => Padding(
-                              padding: const EdgeInsets.all(7),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  TextConfig().TextConfig2(
-                                      '측정 시간 ${_timeResult}',
-                                      15,
-                                      FontWeight.w500,
-                                      Colors.black),
-                                  SizedBox(width: 5),
-                                  Text(
-                                    '|',
-                                    style: TextStyle(
-                                        color: Colors.deepPurpleAccent),
-                                  ),
-                                  SizedBox(width: 5),
-                                  Expanded(
-                                    child: Container(
-                                      child: GridView.count(
-                                        crossAxisCount: 2,
-                                        childAspectRatio: 3,
-                                        mainAxisSpacing: 5,
-                                        crossAxisSpacing: 3,
-                                        scrollDirection: Axis.vertical,
-                                        shrinkWrap: true,
-                                        children: List.generate(aa, (index1) {
-                                          return healthContainer(
-                                              80,
-                                              30,
-                                              Color(int.parse(
-                                                  TodayHealthController
-                                                      .to
-                                                      .healthColor[index]
-                                                          [index1]
-                                                      .toString())),
-                                              //Colors.brown,
-                                              TodayHealthController
-                                                  .to.health[index][index1]);
-                                        }),
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 3, bottom: 3),
+                            child: coverContainer(
+                              boxSize.maxWidth * 0.75,
+                              Colors.deepPurpleAccent,
+                              Colors.white,
+                              LayoutBuilder(
+                                builder: (context, size) => Padding(
+                                  padding: const EdgeInsets.all(7),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      TextConfig().TextConfig2(
+                                          '측정 시간 ${_timeResult}',
+                                          15,
+                                          FontWeight.w500,
+                                          Colors.black),
+                                      SizedBox(width: 5),
+                                      Text(
+                                        '|',
+                                        style: TextStyle(
+                                            color: Colors.deepPurpleAccent),
                                       ),
-                                    ),
+                                      SizedBox(width: 5),
+                                      Expanded(
+                                        child: Container(
+                                          child: GridView.count(
+                                            crossAxisCount: 2,
+                                            childAspectRatio: 3,
+                                            mainAxisSpacing: 5,
+                                            crossAxisSpacing: 3,
+                                            scrollDirection: Axis.vertical,
+                                            shrinkWrap: true,
+                                            children: List.generate(aa, (index1) {
+                                              return healthContainer(
+                                                  50,
+                                                  30,
+                                                  Color(int.parse(
+                                                      TodayHealthController
+                                                          .to
+                                                          .healthColor[index]
+                                                              [index1]
+                                                          .toString())),
+                                                  //Colors.brown,
+                                                  TodayHealthController
+                                                      .to.health[index][index1]);
+                                            }),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                      MaterialButton(
-                          color: Colors.grey.shade600,
-                          minWidth: 60,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          onPressed: () async {
-                            TodayHealthController.to.health.clear();
-                            TodayHealthController.to.healthColor.clear();
+                          Flexible(
+                            fit: FlexFit.loose,
+                            child: MaterialButton(
+                                color: Colors.grey.shade600,
+                                minWidth: 60,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                onPressed: () async {
+                                  TodayHealthController.to.health.clear();
+                                  TodayHealthController.to.healthColor.clear();
 
-                            final kEventsKey4 = await value
-                                .toList()[index]
-                                .toString()
-                                .substring(5, 28);
+                                  final kEventsKey4 = await value
+                                      .toList()[index]
+                                      .toString()
+                                      .substring(5, 28);
 
-                            await healthEventBox?.delete(kEventsKey4);
-                            hEvents.clear();
-                            await eventPut4().whenComplete(
-                                () => hEvents.addAll(eventSource4));
-                            print('삭제 누르고 hEvents ${hEvents}');
-                            print(
-                                '삭제 누르고 healthBox ${healthEventBox?.toMap().values}');
-                            TodayHealthController.to.dayHealthUpdate();
-                            TodayHealthController.to.voidTodayHealthMainItem();
-                            controller1.selectedEventDel();
-                          },
-                          child: TextConfig().TextConfig2(
-                              '삭제', 15, FontWeight.w500, Colors.white))
-                    ],
-                  );
-                },
-              ),
+                                  await healthEventBox?.delete(kEventsKey4);
+                                  hEvents.clear();
+                                  await eventPut4().whenComplete(
+                                      () => hEvents.addAll(eventSource4));
+                                  print('삭제 누르고 hEvents ${hEvents}');
+                                  print(
+                                      '삭제 누르고 healthBox ${healthEventBox?.toMap().values}');
+                                  TodayHealthController.to.dayHealthUpdate();
+                                  TodayHealthController.to.voidTodayHealthMainItem();
+                                  controller1.selectedEventDel();
+                                },
+                                child: TextConfig().TextConfig2(
+                                    '삭제', 15, FontWeight.w500, Colors.white)),
+                          )
+                        ],
+                      );
+                    },
+                  ),
+                );
+              }
             );
           },
         ),

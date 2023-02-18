@@ -15,6 +15,20 @@ Widget coverContainer(
   );
 }
 
+// 그냥 데코레이션 적용된 컨테이너에서 크기값 빠진거
+Widget coverContainer2(
+    dynamic color1, dynamic color2, dynamic child) {
+  return Container(
+    //height: height,
+    decoration: BoxDecoration(
+        border: Border.all(color: color1),
+        boxShadow: [BoxShadow(color: Colors.black)],
+        borderRadius: BorderRadius.circular(10),
+        color: color2),
+    child: child,
+  );
+}
+
 // coverContainer 에서 inkWell 적용
 Widget clickContainer(
     double width, dynamic color1, dynamic color2, dynamic child, dynamic onTap) {

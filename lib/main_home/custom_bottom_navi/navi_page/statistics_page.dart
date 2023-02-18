@@ -1,3 +1,5 @@
+import 'package:diabetes_life/main_config/google_admob/google_admob_config.dart';
+import 'package:diabetes_life/main_config/google_admob/google_admob_widget.dart';
 import 'package:diabetes_life/main_config/main_hive_config.dart';
 import 'package:diabetes_life/main_config/main_size.dart';
 import 'package:diabetes_life/main_home/custom_bottom_navi/navi_controller/statistics_controller.dart';
@@ -10,6 +12,8 @@ class StatisticsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    createBannerAd();
+    createBannerAd2();
     Get.put(StatisticsController());
 
     StatisticsController.to.diabetesAverage();
@@ -31,6 +35,8 @@ class StatisticsPage extends StatelessWidget {
           child: Column(
             children: [
               diabetesStatistics(),
+              SizedBox(height: 10),
+              googleAdBanner2(),
               SizedBox(height: 10),
               bloodPressureStatistics(),
               SizedBox(height: 10),

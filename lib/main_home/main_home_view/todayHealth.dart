@@ -14,12 +14,10 @@ Widget todayHealth() {
   return LayoutBuilder(
     builder: (BuildContext context, size) => Column(
       children: [
-        SizedBox(height: size.maxHeight * 0.05),
-        AutoSizeTextConfig().TextConfig2(
-            '오늘의 운동', 1, 30, 13, Colors.black, 10, FontWeight.w700),
-        SizedBox(height: size.maxHeight * 0.05),
-        //healthContainer(size.maxWidth * 0.25, size.maxHeight * 0.25, Colors.grey.shade700, '달리기')
-        Obx(() => todayHealthMainItem())
+        textView(
+            size.maxWidth - 10, '오늘의 운동', 20.0, Colors.black, FontWeight.w700),
+        Obx(() => todayHealthMainItem()),
+      SizedBox(height: size.maxHeight * 0.1)
       ],
     ),
   );

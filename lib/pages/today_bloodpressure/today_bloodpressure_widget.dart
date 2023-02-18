@@ -271,7 +271,7 @@ Future eventPut2() async {
   );
 }
 
-Widget selectedList2() {
+/*Widget selectedList2() {
   return GetBuilder<TodayBloodPressureController>(builder: (controller1) {
     controller1.selectedDay4 = controller1.focusedDay2;
     final date = controller1.selectedDay4.toString().substring(0, 11);
@@ -359,6 +359,103 @@ Widget selectedList2() {
                       ],
                     );
                   }),
+            );
+          }),
+    );
+  });
+}*/
+
+Widget selectedList2() {
+  return GetBuilder<TodayBloodPressureController>(builder: (controller1) {
+    controller1.selectedDay4 = controller1.focusedDay2;
+    final date = controller1.selectedDay4.toString().substring(0, 11);
+    DateTime dateTime = DateTime.parse('$date${'00:00:00.000'}');
+    controller1.selectedEvents2.value = controller1.getEventsForDay(dateTime);
+    return Expanded(
+      child: ValueListenableBuilder<List<BloodEvent>>(
+          valueListenable: controller1.selectedEvents2,
+          builder: (BuildContext, value, child) {
+            //print('bloodBox Map = ${bloodBox?.values.first['날짜']}');
+            return LayoutBuilder(
+              builder: (context, boxSize) {
+                return Container(
+                  width: mainWidthSize - 15,
+                  child: ListView.builder(
+                      itemCount: value.length, //box.keys.length,
+                      itemBuilder: (BuildContext, int index) {
+                        var result = value
+                            .asMap()[index]
+                            .toString()
+                            .replaceRange(0, 30, '')
+                            .replaceAll('}', '');
+                        var timeResult = value
+                            .asMap()[index]
+                            .toString()
+                            .replaceRange(0, 15, '')
+                            .replaceRange(6, null, '');
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 3, bottom: 3),
+                              child: coverContainer(
+                                boxSize.maxWidth * 0.7,
+                                      Colors.redAccent,
+                                      Colors.white,
+                                      Padding(
+                                        padding: const EdgeInsets.all(7),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                TextView().textView1('${result} (mmHg)', boxSize.maxWidth * 0.03, FontWeight.w500, Colors.black),
+                                                SizedBox(height: 8),
+                                                TextView().textView1('측정 시간  ${timeResult}', boxSize.maxWidth * 0.03, FontWeight.w500, Colors.black),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      )),
+
+
+                            ),
+                        SizedBox(width: 20),
+                       Flexible(
+                         fit: FlexFit.loose,
+                         child: MaterialButton(
+                                    color: Colors.grey.shade600,
+                                    height: 60,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10)),
+                                    onPressed: () async {
+                                      final kEventsKey = await value
+                                          .toList()[index]
+                                          .toString()
+                                          .substring(5, 28);
+
+                                      await bloodBox?.delete(kEventsKey);
+                                      kEvents2.clear();
+                                      await eventPut2().whenComplete(
+                                              () => kEvents2.addAll(eventSource2));
+                                      print('삭제 누르고 kEvents2 ${kEvents2}');
+                                      print(
+                                          '삭제 누르고 bloodBox ${bloodBox?.toMap().values}');
+                                      controller1.selectedEventDel();
+                                      todayBloodMainList[0].removeAt(index);
+                                      todayBloodMain();
+                                    },
+                                    child: TextConfig().TextConfig2(
+                                        '삭제', 15, FontWeight.w500, Colors.white)),
+                       ),
+
+
+                          ],
+                        );
+                      }),
+                );
+              }
             );
           }),
     );

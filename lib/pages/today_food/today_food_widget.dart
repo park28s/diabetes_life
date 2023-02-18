@@ -221,30 +221,36 @@ Widget foodIconSet() {
   return Obx(() => Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          foodIcon(
-              () => TodayFoodController.to.selectedFoodSet(1),
-              TodayFoodController.to.selectedFood!.value == 1
-                  ? Colors.black
-                  : Colors.white,
-              Colors.red,
-              '나쁜 음식',
-              '${TodayFoodController.to.badFood}'),
-          foodIcon(
-              () => TodayFoodController.to.selectedFoodSet(2),
-              TodayFoodController.to.selectedFood!.value == 2
-                  ? Colors.black
-                  : Colors.white,
-              Colors.green,
-              '좋은 음식',
-              '${TodayFoodController.to.goodFood}'),
-          foodIcon(
-              () => TodayFoodController.to.selectedFoodSet(3),
-              TodayFoodController.to.selectedFood!.value == 3
-                  ? Colors.black
-                  : Colors.white,
-              Colors.indigo,
-              '애매한 음식',
-              '${TodayFoodController.to.sosoFood}')
+          Expanded(
+            child: foodIcon(
+                () => TodayFoodController.to.selectedFoodSet(1),
+                TodayFoodController.to.selectedFood!.value == 1
+                    ? Colors.black
+                    : Colors.white,
+                Colors.red,
+                '나쁜 음식',
+                '${TodayFoodController.to.badFood}'),
+          ),
+          Expanded(
+            child: foodIcon(
+                () => TodayFoodController.to.selectedFoodSet(2),
+                TodayFoodController.to.selectedFood!.value == 2
+                    ? Colors.black
+                    : Colors.white,
+                Colors.green,
+                '좋은 음식',
+                '${TodayFoodController.to.goodFood}'),
+          ),
+          Expanded(
+            child: foodIcon(
+                () => TodayFoodController.to.selectedFoodSet(3),
+                TodayFoodController.to.selectedFood!.value == 3
+                    ? Colors.black
+                    : Colors.white,
+                Colors.indigo,
+                '애매한 음식',
+                '${TodayFoodController.to.sosoFood}'),
+          )
         ],
       ));
 }
@@ -328,96 +334,103 @@ Widget selectedList3() {
           valueListenable: controller1.selectedEvents3,
           builder: (BuildContext, value, child) {
             //   print('foodBox Map = ${foodBox?.values.first['좋은 음식']}');
-            return Container(
-              width: mainWidthSize - 15,
-              child: ListView.builder(
-                itemCount: value.length, //box.keys.length,
-                itemBuilder: (BuildContext, int index) {
-                  int badResult = int.parse(
-                      '${value.asMap()[index].toString().substring(37, 40).replaceAll(',', '')}');
-                  int goodResult = int.parse(
-                      '${value.asMap()[index].toString().substring(47, 51).replaceAll(':', '').replaceAll(',', '').replaceAll(' ', '')}');
-                  int sosoResult = int.parse(
-                      '${value.asMap()[index].toString().substring(59, null).replaceAll(':', '').replaceAll('}', '')}');
-                  var timeResult = value
-                      .asMap()[index]
-                      .toString()
-                      .replaceRange(0, 15, '')
-                      .replaceRange(6, null, '');
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 3, bottom: 3),
-                        child: coverContainer(
-                          mainWidthSize > 750 ? 650 : 280,
-                          Colors.green.shade900,
-                          Colors.white,
-                          LayoutBuilder(
-                            builder: (context, size) => Padding(
-                              padding: const EdgeInsets.all(7),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  TextConfig().TextConfig2(
-                                      '측정 시간 ${timeResult}',
-                                      15,
-                                      FontWeight.w500,
-                                      Colors.black),
-                                  SizedBox(width: 5),
-                                  Text(
-                                    '|',
-                                    style:
-                                        TextStyle(color: Colors.green.shade900),
-                                  ),
-                                  SizedBox(width: 5),
-                                  foodUi(size.maxWidth * 0.25, 25),
-                                  SizedBox(width: 5),
-                                  foodSetResult(
-                                      size.maxWidth * 0.15,
-                                      25,
-                                      '${badResult} 번',
-                                      '${goodResult} 번',
-                                      '${sosoResult} 번')
-                                ],
+            return LayoutBuilder(builder: (context, boxSize) {
+              return Container(
+                width: mainWidthSize - 15,
+                child: ListView.builder(
+                  itemCount: value.length, //box.keys.length,
+                  itemBuilder: (BuildContext, int index) {
+                    int badResult = int.parse(
+                        '${value.asMap()[index].toString().substring(37, 40).replaceAll(',', '')}');
+                    int goodResult = int.parse(
+                        '${value.asMap()[index].toString().substring(47, 51).replaceAll(':', '').replaceAll(',', '').replaceAll(' ', '')}');
+                    int sosoResult = int.parse(
+                        '${value.asMap()[index].toString().substring(59, null).replaceAll(':', '').replaceAll('}', '')}');
+                    var timeResult = value
+                        .asMap()[index]
+                        .toString()
+                        .replaceRange(0, 15, '')
+                        .replaceRange(6, null, '');
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 3, bottom: 3),
+                          child: coverContainer(
+                            boxSize.maxWidth * 0.7,
+                            Colors.green.shade900,
+                            Colors.white,
+                            LayoutBuilder(
+                              builder: (context, size) => Padding(
+                                padding: const EdgeInsets.all(7),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    TextView().textView1(
+                                        '측정 시간 ${timeResult}',
+                                        size.maxWidth * 0.05,
+                                        FontWeight.w500,
+                                        Colors.black),
+                                    SizedBox(width: 5),
+                                    Text(
+                                      '|',
+                                      style: TextStyle(
+                                          color: Colors.green.shade900),
+                                    ),
+                                    SizedBox(width: 5),
+                                    foodUi(size.maxWidth * 0.25, 25,
+                                        size.maxWidth * 0.04),
+                                    SizedBox(width: 5),
+                                    foodSetResult(
+                                        size.maxWidth * 0.15,
+                                        25,
+                                        '${badResult} 번',
+                                        '${goodResult} 번',
+                                        '${sosoResult} 번',
+                                        size.maxWidth * 0.04)
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      MaterialButton(
-                          color: Colors.grey.shade600,
-                          minWidth: 60,
-                          height: 60,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          onPressed: () async {
-                            final kEventsKey3 = await value
-                                .toList()[index]
-                                .toString()
-                                .substring(5, 28);
+                        Flexible(
+                          fit: FlexFit.loose,
+                          child: MaterialButton(
+                              color: Colors.grey.shade600,
+                              height: 80,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              onPressed: () async {
+                                final kEventsKey3 = await value
+                                    .toList()[index]
+                                    .toString()
+                                    .substring(5, 28);
 
-                            await foodBox?.delete(kEventsKey3);
-                            fEvents.clear();
-                            await eventPut3().whenComplete(
-                                () => fEvents.addAll(eventSource3));
-                            print('삭제 누르고 fEvents ${fEvents}');
-                            print('삭제 누르고 foodBox ${foodBox?.toMap().values}');
-                            controller1.selectedEventDel();
-                            todayBadFoodSumMainList.clear();
-                            todayGoodFoodSumMainList.clear();
-                            todaySosoFoodSumMainList.clear();
-                             print('SUM = ${todayBadFoodSumMainList}');
-                            todayFoodMain();
-                          },
-                          child: TextConfig().TextConfig2(
-                              '삭제', 15, FontWeight.w500, Colors.white))
-                    ],
-                  );
-                },
-              ),
-            );
+                                await foodBox?.delete(kEventsKey3);
+                                fEvents.clear();
+                                await eventPut3().whenComplete(
+                                    () => fEvents.addAll(eventSource3));
+                                print('삭제 누르고 fEvents ${fEvents}');
+                                print(
+                                    '삭제 누르고 foodBox ${foodBox?.toMap().values}');
+                                controller1.selectedEventDel();
+                                todayBadFoodSumMainList.clear();
+                                todayGoodFoodSumMainList.clear();
+                                todaySosoFoodSumMainList.clear();
+                                print('SUM = ${todayBadFoodSumMainList}');
+                                todayFoodMain();
+                              },
+                              child: TextConfig().TextConfig2(
+                                  '삭제', 15, FontWeight.w500, Colors.white)),
+                        )
+                      ],
+                    );
+                  },
+                ),
+              );
+            });
           },
         ),
       );
@@ -425,27 +438,27 @@ Widget selectedList3() {
   );
 }
 
-Widget foodUi(double wSize, double hSize) {
+Widget foodUi(double wSize, double hSize, double fontSize) {
   return Column(
     children: [
-      foodContainer(wSize, hSize, FoodListColors().bad, '안좋은음식'),
+      foodContainer(wSize, hSize, FoodListColors().bad, '안좋은음식', fontSize),
       SizedBox(height: 5),
-      foodContainer(wSize, hSize, FoodListColors().good, '좋은음식'),
+      foodContainer(wSize, hSize, FoodListColors().good, '좋은음식', fontSize),
       SizedBox(height: 5),
-      foodContainer(wSize, hSize, FoodListColors().soso, '애매한음식'),
+      foodContainer(wSize, hSize, FoodListColors().soso, '애매한음식', fontSize),
     ],
   );
 }
 
-Widget foodSetResult(
-    double wSize, double hSize, String text1, String text2, String text3) {
+Widget foodSetResult(double wSize, double hSize, String text1, String text2,
+    String text3, double fontSize) {
   return Column(
     children: [
-      foodContainer(wSize, hSize, Colors.grey.shade500, text1),
+      foodContainer(wSize, hSize, Colors.grey.shade500, text1, fontSize),
       SizedBox(height: 5),
-      foodContainer(wSize, hSize, Colors.grey.shade500, text2),
+      foodContainer(wSize, hSize, Colors.grey.shade500, text2, fontSize),
       SizedBox(height: 5),
-      foodContainer(wSize, hSize, Colors.grey.shade500, text3),
+      foodContainer(wSize, hSize, Colors.grey.shade500, text3, fontSize),
     ],
   );
 }

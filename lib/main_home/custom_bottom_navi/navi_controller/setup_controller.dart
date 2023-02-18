@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:diabetes_life/main_config/main_hive_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -71,7 +73,8 @@ class LocalNotification {
     );
 
     print(tz.TZDateTime.now(tz.getLocation('Asia/Seoul')));
-    print(Checked2TimeBox?.toMap().values.first);
+    log('여기까지 작동허냐');
+  //  print(Checked2TimeBox?.toMap().values.first);
 
     isSettingCheck1!.values.first == true
         ? flutterLocalNotificationsPlugin.zonedSchedule(
@@ -87,6 +90,7 @@ class LocalNotification {
                 UILocalNotificationDateInterpretation.absoluteTime)
         : FlutterLocalNotificationsPlugin().cancel(1);
 
+    if(isSettingCheck2!.values.first == true)
     isSettingCheck2!.values.first == true &&
             Checked2TimeBox?.toMap().values.first != null
         ? flutterLocalNotificationsPlugin.zonedSchedule(

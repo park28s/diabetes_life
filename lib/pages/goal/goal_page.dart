@@ -1,3 +1,5 @@
+import 'package:diabetes_life/main_config/google_admob/google_admob_config.dart';
+import 'package:diabetes_life/main_config/google_admob/google_admob_widget.dart';
 import 'package:diabetes_life/main_config/main_appbar_default.dart';
 import 'package:diabetes_life/main_config/main_dateTime.dart';
 import 'package:diabetes_life/main_config/main_size.dart';
@@ -25,6 +27,8 @@ class GoalPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    createInterstitialAd();
+    createBannerAd2();
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -47,6 +51,8 @@ class GoalPage extends StatelessWidget {
                     SizedBox(height: size.maxHeight * 0.02),
                     bloodPressureGoal(
                         size.maxWidth * 0.9, size.maxHeight * 0.25),
+                    SizedBox(height: size.maxHeight * 0.02),
+                    googleAdBanner2(),
                     SizedBox(height: size.maxHeight * 0.02),
                     badFoodGoal(size.maxWidth * 0.9, size.maxHeight * 0.25),
                     SizedBox(height: 20),
@@ -74,13 +80,10 @@ class GoalPage extends StatelessWidget {
                                     badFood: int.parse(badFoodController.text),
                                     health: int.parse(healthController.text),
                                   ))
-                              .whenComplete(() => textFormClear())
-                              .whenComplete(() => Get.back())
-                              .whenComplete(
-                                  () => getSnackBar('성공적으로 저장 되었습니다!', ''));
+                              .whenComplete(() => showInterstitialAd());
                         } else {
                           return getSnackBar(
-                              '입력이 잘못됐어요!', '빈곳이 없는지, 숫자로 넣어주신게 맞는지 확인해 주세요');
+                              '입력이 잘못 됐어요!', '빈곳이 없는지, 숫자로 넣어주신게 맞는지 확인해 주세요');
                         }
                       },
                     )

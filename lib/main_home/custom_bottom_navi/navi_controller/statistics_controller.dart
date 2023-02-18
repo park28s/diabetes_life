@@ -43,6 +43,7 @@ class StatisticsController extends GetxController {
   RxDouble bloodSys = 0.0.obs;
   RxDouble bloodDia = 0.0.obs;
   RxDouble totalBloodSysAverage = 0.0.obs;
+  RxString bloodAverageResult = '-'.obs;
 
   RxDouble badFoodResult = 0.0.obs;
   RxDouble goodFoodResult = 0.0.obs;
@@ -156,6 +157,7 @@ class StatisticsController extends GetxController {
         '${isStateBloodMonth.value} / ${isStateBloodMonthAgo.value} / ${isStateBlood3Month.value}');
     bloodPressureAverage();
     bloodPressureResultString();
+    bloodChecked();
   }
 
   void stateBloodMonthAge() {
@@ -167,6 +169,7 @@ class StatisticsController extends GetxController {
         '${isStateBloodMonth.value} / ${isStateBloodMonthAgo.value} / ${isStateBlood3Month.value}');
     bloodPressureAverage();
     bloodPressureResultString();
+    bloodChecked();
   }
 
   void stateBlood3Month() {
@@ -178,6 +181,7 @@ class StatisticsController extends GetxController {
         '${isStateBloodMonth.value} / ${isStateBloodMonthAgo.value} / ${isStateBlood3Month.value}');
     bloodPressureAverage();
     bloodSysResultString.value = '-';
+    bloodChecked();
   }
 
   void bloodPressureResultString() {
@@ -198,6 +202,21 @@ class StatisticsController extends GetxController {
         }
       }
     }
+  }
+
+  void bloodChecked() {
+    if (totalBloodSysAverage.value > 139) {
+      bloodAverageResult.value = '고혈압 이에요';
+    } else if (totalBloodSysAverage.value > 90 &&
+        totalBloodSysAverage.value < 140) {
+      bloodAverageResult.value = '정상 이에요';
+    } else if (totalBloodSysAverage.value < 90 &&
+        totalBloodSysAverage.value != 0 ) {
+      bloodAverageResult.value = '저혈압 이에요';
+    } else if(totalBloodSysAverage.value == 0) {
+      bloodAverageResult.value = '측정 전 이에요';
+    }
+    print(bloodAverageResult);
   }
 
   void stateFoodMonth() {
@@ -230,7 +249,7 @@ class StatisticsController extends GetxController {
     print(
         '${isStateFoodMonth.value} / ${isStateFoodMonthAgo.value} / ${isStateFood3Month.value}');
     foodAverage();
-    badFoodResultString.value = '-';
+    foodResultString();
   }
 
   void foodResultString() {
@@ -286,7 +305,7 @@ class StatisticsController extends GetxController {
         '${isStateHealthMonth.value} / ${isStateHealthMonthAgo.value} / ${isStateHealth3Month.value}');
     monthName.value = '3개월';
     healthSumAverage();
-    healthResultString.value = '-';
+    healthCheckResultString();
   }
 
   void healthCheckResultString() {
@@ -450,6 +469,8 @@ class StatisticsController extends GetxController {
     bloodDia.value = _diaList.isNotEmpty
         ? _diaList.reduce((value, element) => value + element) / _diaList.length
         : 0.0;
+
+    totalBloodSysAverage.value = bloodSys.toDouble();
 
     print('전체 평균 수축기 ${bloodSys.toInt()} | 전체 평균 이완기 ${bloodDia.toInt()}');
   }

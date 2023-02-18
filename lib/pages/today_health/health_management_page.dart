@@ -13,7 +13,7 @@ class HealthManagement extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: AppBarDefault2(),
+        appBar: AppBarDefault3(),
         body: SingleChildScrollView(
           child: Container(
             width: mainWidthSize,
@@ -33,8 +33,8 @@ class HealthManagement extends StatelessWidget {
                             indent: 10,
                             endIndent: 10),
                         SizedBox(height: 10),
-                        TextConfig().TextConfig1(
-                            '새로운 운동을 등록해 주세요', 15, FontWeight.w500, Colors.black),
+                        TextConfig().TextConfig1('새로운 운동을 등록해 주세요', 15,
+                            FontWeight.w500, Colors.black),
                         SizedBox(height: 10),
                         healthInputForm(),
                         SizedBox(height: 10),

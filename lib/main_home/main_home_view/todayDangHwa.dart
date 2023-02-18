@@ -12,14 +12,19 @@ Widget todayDangHwa() {
   return LayoutBuilder(
     builder: (BuildContext context, size) => Column(children: [
       SizedBox(height: size.maxHeight * 0.05),
-      AutoSizeTextConfig().TextConfig2(
-          '예상 당화혈색소', 1, 30, 13, Colors.black, 10, FontWeight.w700),
+      textView(
+          size.maxWidth - 10, '예상 당화혈색소', 20.0, Colors.black, FontWeight.w700),
       SizedBox(height: size.maxHeight * 0.05),
-      AutoSizeTextConfig().TextConfig2('${dangHwaResult.toPrecision(1)}', 1, 30,
-          13, Colors.deepPurpleAccent, 35, FontWeight.w700),
+      textView(size.maxWidth - 10, '${dangHwaResult.toPrecision(1)}', 20.0,
+          Colors.deepPurpleAccent, FontWeight.w700),
+      SizedBox(height: size.maxHeight * 0.05)
     ]),
   );
 }
+//note : 이전 메인 소스 (혹시 이상 생기면 참조)
+/*TextView().textView('예상 당화혈색소', size.maxWidth * 0.05, FontWeight.w700, Colors.black),
+      SizedBox(height: size.maxHeight * 0.05),
+      TextView().textView('${dangHwaResult.toPrecision(1)}', size.maxWidth * 0.12, FontWeight.w700, Colors.deepPurpleAccent)*/
 
 void diabetesAverage() {
   List result = [];

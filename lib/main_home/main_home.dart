@@ -1,3 +1,4 @@
+import 'package:diabetes_life/main_config/google_admob/google_admob_config.dart';
 import 'package:diabetes_life/main_config/main_appbar_default.dart';
 import 'package:diabetes_life/main_config/main_colors.dart';
 import 'package:diabetes_life/main_config/main_size.dart';
@@ -16,9 +17,36 @@ import 'package:diabetes_life/pages/today_food/today_food_page.dart';
 import 'package:diabetes_life/pages/today_health/today_health_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class MainHome extends StatelessWidget {
+late BannerAd? bannerAd;
+late InterstitialAd? interstitialAd;
+late RewardedAd? rewardedAd;
+
+class MainHome extends StatefulWidget {
   const MainHome({Key? key}) : super(key: key);
+
+  @override
+  State<MainHome> createState() => _MainHomeState();
+}
+
+class _MainHomeState extends State<MainHome> {
+  @override
+  void initState() {
+    super.initState();
+    createBannerAd();
+    createBannerAd2();
+    createInterstitialAd();
+    //createRewardedAd();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    bannerAd?.dispose();
+    interstitialAd?.dispose();
+    rewardedAd?.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,13 +122,13 @@ class MainHomeViewModel extends StatelessWidget {
                 InkWell(
                   onTap: () => Get.to(() => TodayFood()),
                   child: mainContainer(size.maxWidth * 0.9,
-                      size.maxHeight * 0.17, Colors.white, todayFood()),
+                      size.maxHeight * 0.2, Colors.white, todayFood()),
                 ),
                 SizedBox(height: size.maxHeight * 0.02),
                 InkWell(
                   onTap: () => Get.to(() => TodayHealth()),
                   child: mainContainer(size.maxWidth * 0.9,
-                      size.maxHeight * 0.2, Colors.white, todayHealth()),
+                      size.maxHeight * 0.4, Colors.white, todayHealth()),
                 ),
               ],
             ),

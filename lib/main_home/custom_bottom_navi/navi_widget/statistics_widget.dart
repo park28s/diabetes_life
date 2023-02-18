@@ -20,27 +20,6 @@ Widget diabetesDaySetting() {
     );
   }
 
-  Widget graphIcon() {
-    return GestureDetector(
-      onTap: () => print('차트보기 클릭'),
-      child: Container(
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.white),
-            borderRadius: BorderRadius.circular(5)),
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Row(
-            children: [
-              Icon(Icons.show_chart, color: Colors.white),
-              SizedBox(width: 5),
-              Text('차트 보기', style: TextStyle(color: Colors.white)),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   return Obx(
     () => Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -51,7 +30,6 @@ Widget diabetesDaySetting() {
             '지난 달', () => StatisticsController.to.stateDiabetesMonthAge()),
         buttonSetting(StatisticsController.to.isStateDiabetes3Month.isFalse,
             '3개월', () => StatisticsController.to.stateDiabetes3Month()),
-        graphIcon()
       ],
     ),
   );
@@ -60,7 +38,7 @@ Widget diabetesDaySetting() {
 // 평균 혈압 선택 및 차트 보기 위젯
 Widget bloodPressureDaySetting() {
   Get.lazyPut(() => StatisticsController());
-
+  StatisticsController.to.bloodChecked();
   Widget buttonSetting(dynamic isItem, String text, var onPressed) {
     return TextButton(
       style: ButtonStyle(
@@ -70,27 +48,6 @@ Widget bloodPressureDaySetting() {
       child: TextConfig().TextConfig2(text, 15, FontWeight.w500,
           isItem ? Colors.white : Colors.indigoAccent),
       onPressed: onPressed,
-    );
-  }
-
-  Widget graphIcon() {
-    return GestureDetector(
-      onTap: () => print('차트보기 클릭'),
-      child: Container(
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.white),
-            borderRadius: BorderRadius.circular(5)),
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Row(
-            children: [
-              Icon(Icons.show_chart, color: Colors.white),
-              SizedBox(width: 5),
-              Text('차트 보기', style: TextStyle(color: Colors.white)),
-            ],
-          ),
-        ),
-      ),
     );
   }
 
@@ -104,7 +61,6 @@ Widget bloodPressureDaySetting() {
             '지난 달', () => StatisticsController.to.stateBloodMonthAge()),
         buttonSetting(StatisticsController.to.isStateBlood3Month.isFalse, '3개월',
             () => StatisticsController.to.stateBlood3Month()),
-        graphIcon()
       ],
     ),
   );
@@ -126,27 +82,6 @@ Widget foodDaySetting() {
     );
   }
 
-  Widget graphIcon() {
-    return GestureDetector(
-      onTap: () => print('차트보기 클릭'),
-      child: Container(
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.white),
-            borderRadius: BorderRadius.circular(5)),
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Row(
-            children: [
-              Icon(Icons.show_chart, color: Colors.white),
-              SizedBox(width: 5),
-              Text('차트 보기', style: TextStyle(color: Colors.white)),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   return Obx(
     () => Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -157,7 +92,6 @@ Widget foodDaySetting() {
             '지난 달', () => StatisticsController.to.stateFoodMonthAge()),
         buttonSetting(StatisticsController.to.isStateFood3Month.isFalse, '3개월',
             () => StatisticsController.to.stateFood3Month()),
-        graphIcon()
       ],
     ),
   );
@@ -179,27 +113,6 @@ Widget healthDaySetting() {
     );
   }
 
-  Widget graphIcon() {
-    return GestureDetector(
-      onTap: () => print('차트보기 클릭'),
-      child: Container(
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.white),
-            borderRadius: BorderRadius.circular(5)),
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Row(
-            children: [
-              Icon(Icons.show_chart, color: Colors.white),
-              SizedBox(width: 5),
-              Text('차트 보기', style: TextStyle(color: Colors.white)),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   return Obx(
     () => Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -210,7 +123,6 @@ Widget healthDaySetting() {
             '지난 달', () => StatisticsController.to.stateHealthMonthAge()),
         buttonSetting(StatisticsController.to.isStateHealth3Month.isFalse,
             '3개월', () => StatisticsController.to.stateHealth3Month()),
-        graphIcon()
       ],
     ),
   );
@@ -251,19 +163,28 @@ Widget diabetesStatistics() {
                     '공복',
                     StatisticsController.to.diabetesEmpty.value.toInt(),
                     StatisticsController.to.diabetesEmptyResultString.value,
-                    StatisticsController.to.diabetesEmptyResultString.value == '실패 에요!' ? Colors.red : Colors.black),
+                    StatisticsController.to.diabetesEmptyResultString.value ==
+                            '실패 에요!'
+                        ? Colors.red
+                        : Colors.black),
                 SizedBox(height: 10),
                 _resultInfo(
                     '식전',
                     StatisticsController.to.diabetesBefore.value.toInt(),
                     StatisticsController.to.diabetesBeforeResultString.value,
-                    StatisticsController.to.diabetesBeforeResultString.value == '실패 에요!' ? Colors.red : Colors.black),
+                    StatisticsController.to.diabetesBeforeResultString.value ==
+                            '실패 에요!'
+                        ? Colors.red
+                        : Colors.black),
                 SizedBox(height: 10),
                 _resultInfo(
                     '식후',
                     StatisticsController.to.diabetesAfter.value.toInt(),
                     StatisticsController.to.diabetesAfterResultString.value,
-                    StatisticsController.to.diabetesAfterResultString.value == '실패 에요!' ? Colors.red : Colors.black),
+                    StatisticsController.to.diabetesAfterResultString.value ==
+                            '실패 에요!'
+                        ? Colors.red
+                        : Colors.black),
                 SizedBox(height: 5),
               ],
             ),
@@ -291,8 +212,11 @@ Widget diabetesStatistics() {
               SizedBox(width: 10),
               Obx(
                 () => TextConfig().TextConfig1(
-                    StatisticsController.to.totalDiabetesAverage.value
-                        .isNaN ? '-'.toString() : StatisticsController.to.totalDiabetesAverage.value.toInt().toString(),
+                    StatisticsController.to.totalDiabetesAverage.value.isNaN
+                        ? '-'.toString()
+                        : StatisticsController.to.totalDiabetesAverage.value
+                            .toInt()
+                            .toString(),
                     30,
                     FontWeight.w700,
                     Colors.orange),
@@ -346,9 +270,13 @@ Widget bloodPressureStatistics() {
               SizedBox(height: 5),
               _resultInfo(),
               SizedBox(height: 20),
-              TextConfig()
-                  .TextConfig1(StatisticsController.to.bloodSysResultString.value, 25, FontWeight.w500,
-                  StatisticsController.to.bloodSysResultString.value == '실패 에요!' ? Colors.red : Colors.black),
+              TextConfig().TextConfig1(
+                  StatisticsController.to.bloodSysResultString.value,
+                  25,
+                  FontWeight.w500,
+                  StatisticsController.to.bloodSysResultString.value == '실패 에요!'
+                      ? Colors.red
+                      : Colors.black),
               SizedBox(height: 5),
             ],
           ),
@@ -371,14 +299,19 @@ Widget bloodPressureStatistics() {
           SizedBox(height: 5),
           _boxContainer(),
           SizedBox(height: 5),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextConfig()
-                  .TextConfig1('고혈압 이에요', 20, FontWeight.w500, Colors.white),
-              SizedBox(height: 10)
-            ],
-          )
+          Obx(
+            () => Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextConfig().TextConfig1(
+                    '${StatisticsController.to.bloodAverageResult.value}',
+                    20,
+                    FontWeight.w500,
+                    Colors.white),
+                SizedBox(height: 10)
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -397,8 +330,8 @@ Widget foodStatistics() {
               children: [
                 Column(
                   children: [
-                    TextConfig()
-                        .TextConfig1('안좋은음식', 15, FontWeight.w500, Colors.black),
+                    TextConfig().TextConfig1(
+                        '안좋은음식', 14, FontWeight.w500, Colors.black),
                     SizedBox(width: 5),
                     TextConfig().TextConfig1(
                         '${StatisticsController.to.badFoodResult.toInt()}',
@@ -409,12 +342,13 @@ Widget foodStatistics() {
                 ),
                 SizedBox(width: 15),
                 Text('|',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
                 SizedBox(width: 15),
                 Column(
                   children: [
-                    TextConfig()
-                        .TextConfig1('좋은 음식', 15, FontWeight.w500, Colors.black),
+                    TextConfig().TextConfig1(
+                        '좋은 음식', 14, FontWeight.w500, Colors.black),
                     SizedBox(width: 5),
                     TextConfig().TextConfig1(
                         '${StatisticsController.to.goodFoodResult.toInt()}',
@@ -425,12 +359,13 @@ Widget foodStatistics() {
                 ),
                 SizedBox(width: 15),
                 Text('|',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
                 SizedBox(width: 15),
                 Column(
                   children: [
-                    TextConfig()
-                        .TextConfig1('애매한음식', 15, FontWeight.w500, Colors.black),
+                    TextConfig().TextConfig1(
+                        '애매한음식', 14, FontWeight.w500, Colors.black),
                     SizedBox(width: 5),
                     TextConfig().TextConfig1(
                         '${StatisticsController.to.sosoFoodResult.toInt()}',
@@ -441,9 +376,13 @@ Widget foodStatistics() {
                 ),
               ],
             ),
-            TextConfig().TextConfig1(StatisticsController.to.badFoodResultString.value, 20, FontWeight.w500,
-                StatisticsController.to.badFoodResultString.value == '실패 에요!' ? Colors.red : Colors.black
-            )
+            TextConfig().TextConfig1(
+                StatisticsController.to.badFoodResultString.value,
+                20,
+                FontWeight.w500,
+                StatisticsController.to.badFoodResultString.value == '실패 에요!'
+                    ? Colors.red
+                    : Colors.black)
           ],
         );
       }
@@ -495,8 +434,11 @@ Widget healthStatistics() {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextConfig()
-                    .TextConfig1('${StatisticsController.to.monthName.value}', 20, FontWeight.w500, Colors.black),
+                TextConfig().TextConfig1(
+                    '${StatisticsController.to.monthName.value}',
+                    20,
+                    FontWeight.w500,
+                    Colors.black),
                 SizedBox(width: 10),
                 TextConfig().TextConfig1(
                     '평균 운동 횟수는', 20, FontWeight.w500, Colors.black),
@@ -527,8 +469,11 @@ Widget healthStatistics() {
               SizedBox(height: 5),
               _resultInfo(),
               SizedBox(height: 20),
-              TextConfig()
-                  .TextConfig1(StatisticsController.to.healthResultString.value, 25, FontWeight.w500, Colors.black),
+              TextConfig().TextConfig1(
+                  StatisticsController.to.healthResultString.value,
+                  25,
+                  FontWeight.w500,
+                  Colors.black),
             ],
           ),
         ),
