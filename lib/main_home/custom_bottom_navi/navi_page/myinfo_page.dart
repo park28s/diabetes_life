@@ -1,6 +1,7 @@
 import 'package:diabetes_life/main_config/google_admob/google_admob_config.dart';
 import 'package:diabetes_life/main_config/google_admob/google_admob_widget.dart';
 import 'package:diabetes_life/main_home/custom_bottom_navi/navi_widget/myinfo_widget.dart';
+import 'package:diabetes_life/main_home/main_home.dart';
 import 'package:flutter/material.dart';
 
 class MyInfo extends StatelessWidget {
@@ -10,6 +11,9 @@ class MyInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     createBannerAd();
     createInterstitialAd();
+    adCount++;
+    print('adCounter = ${adCount}');
+    adCount == 5 || adCount == 10 ? showInterstitialAd2() : null;
     return SingleChildScrollView(
       child: Column(
         children: [

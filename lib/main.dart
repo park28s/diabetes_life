@@ -7,6 +7,7 @@ import 'package:diabetes_life/pages/model/check_model.dart';
 import 'package:diabetes_life/pages/model/today_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -15,6 +16,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 
 void main() async {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   WidgetsFlutterBinding.ensureInitialized();
   await MobileAds.instance.initialize();
   await Hive.initFlutter();

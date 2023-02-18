@@ -1,4 +1,5 @@
 import 'package:diabetes_life/main_config/google_admob/google_admob_config.dart';
+import 'package:diabetes_life/main_config/google_admob/google_admob_widget.dart';
 import 'package:diabetes_life/main_config/main_appbar_default.dart';
 import 'package:diabetes_life/main_config/main_colors.dart';
 import 'package:diabetes_life/main_config/main_size.dart';
@@ -22,6 +23,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 late BannerAd? bannerAd;
 late InterstitialAd? interstitialAd;
 late RewardedAd? rewardedAd;
+int adCount = 0;
 
 class MainHome extends StatefulWidget {
   const MainHome({Key? key}) : super(key: key);
@@ -48,39 +50,69 @@ class _MainHomeState extends State<MainHome> {
     rewardedAd?.dispose();
   }
 
+  Future<bool> _endEvent() async {
+    return await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Colors.white,
+            title: Center(child: Text('종료 하겠습니까?')),
+            content: endAd(),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(onPressed: () => Navigator.pop(context, true), child: Text('종료')),
+                  ElevatedButton(onPressed: () => Navigator.pop(context, false), child: Text('취소'))
+                ],
+              ),
+            ],
+          );
+        });
+  }
+
+  Widget endAd() {
+    createBannerAd2();
+    return googleAdBanner2();
+  }
+
   @override
   Widget build(BuildContext context) {
     Get.lazyPut(() => CustomNaviBarController());
     CustomNaviBarController.to.bottomNavIndex.value = 5;
     naviBarSet();
-    return Scaffold(
-        appBar: AppBarDefault(),
-        body: NotificationListener<ScrollNotification>(
-            // child 부분에서 page 등록을 해줘야한다.
-            child: Obx(() => naviBarSet())
+    return WillPopScope(
+      onWillPop: () => _endEvent(),
+      child: Scaffold(
+          appBar: AppBarDefault(),
+          body: NotificationListener<ScrollNotification>(
+              // child 부분에서 page 등록을 해줘야한다.
+              child: Obx(() => naviBarSet())),
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: HexColor('#FFA400'),
+            child: Icon(
+              Icons.home,
+              color: Colors.white,
             ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: HexColor('#FFA400'),
-          child: Icon(
-            Icons.home,
-            color: Colors.white,
+            onPressed: () {
+              // naviBar homeButton click == bottomNaviIndex = 기본값 5 초기화
+              CustomNaviBarController.to.bottomNavIndex.value = 5;
+              print(
+                  'bottomNavIndex ${CustomNaviBarController.to.bottomNavIndex}');
+              CustomNaviBarController.to.fabAnimationController.reset();
+              CustomNaviBarController.to.borderRadiusAnimationController
+                  .reset();
+              CustomNaviBarController.to.borderRadiusAnimationController
+                  .forward();
+              CustomNaviBarController.to.fabAnimationController.forward();
+            },
           ),
-          onPressed: () {
-            // naviBar homeButton click == bottomNaviIndex = 기본값 5 초기화
-            CustomNaviBarController.to.bottomNavIndex.value = 5;
-            print('bottomNavIndex ${CustomNaviBarController.to.bottomNavIndex}');
-            CustomNaviBarController.to.fabAnimationController.reset();
-            CustomNaviBarController.to.borderRadiusAnimationController.reset();
-            CustomNaviBarController.to.borderRadiusAnimationController
-                .forward();
-            CustomNaviBarController.to.fabAnimationController.forward();
-          },
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: Obx(() => customAnimatedBar()));
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          bottomNavigationBar: Obx(() => customAnimatedBar())),
+    );
   }
 }
-
 
 class MainHomeViewModel extends StatelessWidget {
   const MainHomeViewModel({Key? key}) : super(key: key);

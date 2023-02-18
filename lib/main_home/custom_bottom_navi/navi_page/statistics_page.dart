@@ -4,6 +4,7 @@ import 'package:diabetes_life/main_config/main_hive_config.dart';
 import 'package:diabetes_life/main_config/main_size.dart';
 import 'package:diabetes_life/main_home/custom_bottom_navi/navi_controller/statistics_controller.dart';
 import 'package:diabetes_life/main_home/custom_bottom_navi/navi_widget/statistics_widget.dart';
+import 'package:diabetes_life/main_home/main_home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,6 +29,9 @@ class StatisticsPage extends StatelessWidget {
         ?.toMap()
         .map((key, value) => MapEntry(key, value.bloodPressure1)));
 
+    adCount++;
+    print('adCounter = ${adCount}');
+    adCount == 5 || adCount == 10 ? showInterstitialAd2() : null;
     return SingleChildScrollView(
       child: Center(
         child: Container(

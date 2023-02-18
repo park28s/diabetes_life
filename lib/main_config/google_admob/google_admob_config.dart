@@ -91,6 +91,29 @@ void showInterstitialAd() {
   return;
 }
 
+//title : 전체 광고 보여 주기 이벤트 빠진거
+void showInterstitialAd2() {
+  if (interstitialAd != null) {
+    interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+      onAdShowedFullScreenContent: (InterstitialAd ad) =>
+          print('%ad onAdShowedFullScreenContent.'),
+      onAdDismissedFullScreenContent: (InterstitialAd ad) {
+        print('$ad onAdDismissedFullScreenContent.');
+        ad
+            .dispose();
+      },
+      onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
+        print('$ad onAdFailedToShowFullScreenContent: $error');
+        ad.dispose();
+      },
+      onAdImpression: (InterstitialAd ad) => print('$ad impression occurred.'),
+    );
+    interstitialAd!.show();
+    interstitialAd = null;
+  }
+  return;
+}
+
 /*//title : 리워드 전체 광고 생성
 void createRewardedAd() {
   RewardedAd.load(

@@ -1,3 +1,5 @@
+import 'package:diabetes_life/main_config/google_admob/google_admob_config.dart';
+import 'package:diabetes_life/main_home/main_home.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -6,6 +8,9 @@ class diabetesManagement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    adCount++;
+    print('adCounter = ${adCount}');
+    adCount == 5 || adCount == 10 ? showInterstitialAd2() : null;
     return Scaffold(
       body: WebView(
         initialUrl:

@@ -6,6 +6,7 @@ import 'package:diabetes_life/main_config/main_size.dart';
 import 'package:diabetes_life/main_config/main_snackbar.dart';
 import 'package:diabetes_life/main_config/main_widget.dart';
 import 'package:diabetes_life/main_config/text_config.dart';
+import 'package:diabetes_life/main_home/main_home.dart';
 import 'package:diabetes_life/pages/goal/goal_widget.dart';
 import 'package:diabetes_life/pages/model/check_model.dart';
 import 'package:flutter/material.dart';
@@ -24,11 +25,13 @@ GlobalKey<FormState> formKey1 = GlobalKey<FormState>();
 
 class GoalPage extends StatelessWidget {
   const GoalPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     createInterstitialAd();
     createBannerAd2();
+    adCount++;
+    print('adCounter = ${adCount}');
+    adCount == 5 || adCount == 10 ? showInterstitialAd2() : null;
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();

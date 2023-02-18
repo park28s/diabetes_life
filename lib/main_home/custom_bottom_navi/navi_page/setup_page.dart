@@ -8,6 +8,7 @@ import 'package:diabetes_life/main_config/main_snackbar.dart';
 import 'package:diabetes_life/main_config/text_config.dart';
 import 'package:diabetes_life/main_home/custom_bottom_navi/navi_controller/setup_controller.dart';
 import 'package:diabetes_life/main_home/custom_bottom_navi/navi_widget/setup_widget.dart';
+import 'package:diabetes_life/main_home/main_home.dart';
 import 'package:diabetes_life/pages/controller/today_diabetes_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -23,6 +24,9 @@ class SetupPage extends StatelessWidget {
   Widget build(BuildContext context) {
     createBannerAd2();
     Get.put(SetupPageController());
+    adCount++;
+    print('adCounter = ${adCount}');
+    adCount == 5 || adCount == 10 ? showInterstitialAd2() : null;
     return SingleChildScrollView(
       child: Center(
         child: Column(
