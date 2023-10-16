@@ -41,20 +41,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCoBoYFp6S14RwV6jWaMuaY_pCkVOkra4A',
-    appId: '1:519197150132:android:a9e7a6da909dad89e040e1',
-    messagingSenderId: '519197150132',
+    apiKey: ,
+    appId: ,
+    messagingSenderId: ,
     projectId: 'diabeteslife',
-    storageBucket: 'diabeteslife.appspot.com',
+    storageBucket: ,
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCKHNHBDzzZUs9YCszGy2b7EXgm140lQog',
-    appId: '1:519197150132:ios:25842448a47c3d5be040e1',
-    messagingSenderId: '519197150132',
+    apiKey: ,
+    appId: ,
+    messagingSenderId: ,
     projectId: 'diabeteslife',
-    storageBucket: 'diabeteslife.appspot.com',
-    iosClientId: '519197150132-9735db284lr0nn7s53q2j9fl8g21ihl2.apps.googleusercontent.com',
-    iosBundleId: 'com.iglab.diabeteslife',
+    storageBucket: ,
+    iosClientId: ,
+    iosBundleId: ,
   );
 }
