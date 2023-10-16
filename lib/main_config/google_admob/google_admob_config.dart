@@ -5,10 +5,10 @@ import 'package:diabetes_life/main_home/main_home.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-final String androidBannerID = 'ca-app-pub-3940256099942544/6300978111';
-final String iosBannerID = 'ca-app-pub-3940256099942544/2934735716';
-final String androidInterstitialID = 'ca-app-pub-3940256099942544/1033173712';
-final String iosInterstitialID = 'ca-app-pub-3940256099942544/4411468910';
+final String androidBannerID = ;
+final String iosBannerID = 
+final String androidInterstitialID = ;
+final String iosInterstitialID = ;
 
 //title : 광고 배너 생성 = 320 x 50
 void createBannerAd() {
